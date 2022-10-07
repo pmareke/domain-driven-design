@@ -1,2 +1,4 @@
-# domain-driven-design
-Domain Driven Design example using Python
+# Domain Driven Design example using Python
+
+## Design
+![./images/DDD.png](DDD)

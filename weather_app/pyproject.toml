@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "weather_app"
+version = "0.1.0"
+description = "Simple Weather App applying DDD"
+authors = ["Pedro Lopez Mareque <pedro.lopez.mareque@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+expects = "^0.9.0"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.982"
+yapf = "^0.32.0"
+flake8 = "^5.0.4"
+pylint = "^2.15.3"
+pytest = "^7.1.3"
+pytest-xdist = "^2.5.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
