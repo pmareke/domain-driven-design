@@ -19,7 +19,7 @@ update: ## Update dependencies
 
 .PHONY: run
 run:    ## Run the app
-	poetry run python main.py
+	docker-compose up --build weather
 
 .PHONY: dev
 dev:    ## Run the server in dev mode

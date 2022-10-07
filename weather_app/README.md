@@ -2,7 +2,7 @@
 
 ## How to run it
 
-- `make run`
+- `make dev`
 
 ## How to test it
 
