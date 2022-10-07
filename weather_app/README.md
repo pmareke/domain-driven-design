@@ -1,6 +1,10 @@
 # Weather app
 
-## How to run it
+## How to run the app 
+
+- `make run`
+
+## How to run the server
 
 - `make dev`
 
