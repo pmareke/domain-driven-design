@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ca550bb2-4670-11ed-94aa-8438354c89a4",
+    "temperature": 30,
+    "city": "Madrid"
+  },
+  {
+    "id": "da550bb2-4670-11ed-94aa-8438354c89a4",
+    "temperature": 20,
+    "city": "Barcelona"
+  },
+  {
+    "id": "da550bb2-f670-11ed-94aa-8438354c89a4",
+    "temperature": 0,
+    "city": "New York"
+  },
+  {
+    "id": "da550bb2-4670-11ed-940a-8438354c89a4",
+    "temperature": -10,
+    "city": "Helsinki"
+  }
+]

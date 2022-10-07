@@ -7,8 +7,8 @@ from weather.use_cases.find_one_weather_command import FindOneWeatherCommand, Fi
 
 class TestFindOneWeatherCommandHandler:
     def test_finds_one_weather(self):
-        weather = Weather(temperature=20, city="Madrid")
-        city_id = weather.id
+        city_id = "any-id"
+        weather = Weather(id=city_id, temperature=20, city="Madrid")
         command = FindOneWeatherCommand(city_id)
         with Stub(WeatherRepository) as repository:
             repository.find(ANY_ARG).returns(weather)
