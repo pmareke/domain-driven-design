@@ -16,3 +16,8 @@ the result to the Delivery layer again.
 - Infrastructure: MongoDB.
 - Use Cases: CommandHandlers.
 - Domain: Domain objects.
+
+## API endpoints
+- `/health`: status of the app.
+- `/api/v1/weather`: list the weather in all cities in the database.
+- `/api/v1/weather/:id`: get the weather of a given city.

@@ -2,9 +2,7 @@ from typing import Union
 
 from fastapi import FastAPI
 
+from weather.delivery.router import router
+
 app = FastAPI()
-
-
-@app.get("/health")
-def health():
-    return {"ok": True}
+app.include_router(router)

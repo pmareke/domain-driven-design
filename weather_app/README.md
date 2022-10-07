@@ -1,5 +1,9 @@
 # Weather app
 
-## Hoe to run it
+## How to run it
 
 - `make run`
+
+## How to test it
+
+- `make test`
