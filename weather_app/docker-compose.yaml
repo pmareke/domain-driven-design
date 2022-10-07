@@ -2,6 +2,26 @@ version: "3.9"
 services:
   weather:
     build: .
+    volumes:
+      - .:/code
+    environment:
+      PYTHONPATH: .
     ports:
       - "80:80"
+    depends_on:
+      - "mongo"
+      - "mongo-seed"
+
+  mongo-seed:
+    build: ./mongo-seed
+    depends_on:
+      - "mongo"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: weather
 

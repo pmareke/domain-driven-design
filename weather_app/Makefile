@@ -9,6 +9,10 @@ help:  ## Show this help.
 local-setup: ## Set up the local environment (e.g. install git hooks)
 	scripts/local-setup.sh
 
+.PHONY: build
+build: ## Set up the local environment (e.g. install git hooks)
+	docker build .
+
 .PHONY: install
 install: ## Install all dependencies
 	poetry install
@@ -19,7 +23,7 @@ update: ## Update dependencies
 
 .PHONY: run
 run:    ## Run the app
-	docker-compose up --build weather
+	docker-compose up
 
 .PHONY: dev
 dev:    ## Run the server in dev mode
@@ -42,9 +46,20 @@ check-style:
 reformat:  ## Format python code
 	poetry run yapf --parallel --recursive --in-place **/*.py
 
+.PHONY: test-unit
+test-unit: ## Run all unit tests
+	docker-compose run --rm --no-deps weather poetry run pytest -n auto tests/unit
+
+.PHONY: test-integration
+test-integration: ## Run all integration tests
+	docker-compose run --rm weather poetry run pytest -n auto tests/integration
+
+.PHONY: test-acceptance
+test-acceptance: ## Run all acceptance tests
+	docker-compose run --rm weather poetry run pytest -n auto tests/acceptance
+
 .PHONY: test
-test: ## Run all available tests
-	PYTHONPATH=. poetry run pytest -n auto
+test: test-unit test-integration test-acceptance
 
 .PHONY: pre-commit
 pre-commit: check-format check-typing check-style test

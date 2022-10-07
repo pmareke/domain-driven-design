@@ -13,7 +13,7 @@ the result to the Delivery layer again.
 
 ## Components
 - Delivery: API Rest using FastAPI.
-- Infrastructure: MongoDB.
+- Infrastructure: MongoDB and PyMongo.
 - Use Cases: CommandHandlers.
 - Domain: Domain objects.
 
