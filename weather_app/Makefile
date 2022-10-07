@@ -21,6 +21,10 @@ update: ## Update dependencies
 run:    ## Run the app
 	poetry run python main.py
 
+.PHONY: dev
+dev:    ## Run the server in dev mode
+	poetry run uvicorn main:app --reload
+
 .PHONY: check-typing
 check-typing:  ## Run a static analyzer over the code to find issues
 	poetry run mypy .
