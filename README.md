@@ -1,8 +1,8 @@
 # Domain Driven Design example using Python
-e# Components
+
+## Components
 The app is build upon **docker** and **docker-compose**. The main webapp is a Python docker application
 connected to a Mongo database using docker-compose.
-
 
 This repository is a work in progress exercise applying **DDD** to a weather app.
 
@@ -13,17 +13,13 @@ This command handlers talks with the **Infrastructure** and **Domain** layers an
 the result to the **Delivery** layer again.
 
 ## Design
-![DDD](./images/DDD.png)
+![Layers](./images/DDD.png)
 
-## DDD Layers
+## App Layers
 - Delivery: API Rest using FastAPI.
 - Infrastructure: MongoDB and PyMongo.
 - Use Cases: CommandHandlers.
 - Domain: Domain objects.
-
-## Components
-The app is build upon **docker** and **docker-compose**. The main webapp is a Python docker application
-connected to a Mongo database using docker-compose.
 
 
 ## API endpoints
