@@ -27,6 +27,9 @@ connected to a Mongo database using docker-compose.
 
 
 ## API endpoints
+
+The docs are available at [http://localhost:8080/docs](http://localhost:8080/docs).
+
 ![Open API](./images/openapi.png)
 
 - GET     - `/health`: status of the app.
