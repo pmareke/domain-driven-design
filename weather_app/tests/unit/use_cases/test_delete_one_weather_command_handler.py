@@ -1,8 +1,7 @@
-from expects import expect, be, raise_error
+from expects import expect, raise_error
 from doublex import Stub, ANY_ARG
 from weather_app.weather.domain.weather_repository import WeatherRepository
-from weather_app.weather.domain.weather import WeatherDTO
-from weather_app.weather.use_cases.delete_one_weather_command import DeleteOneWeatherCommand, DeleteOneWeatherCommandHandler, DeleteOneWeatherCommandResponse
+from weather_app.weather.use_cases.delete_one_weather_command import DeleteOneWeatherCommand, DeleteOneWeatherCommandHandler
 
 
 class TestDeleteOneWeatherCommandHandler:

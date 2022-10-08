@@ -4,7 +4,6 @@ from weather_app.weather.domain.command import Command
 from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.command_response import CommandResponse
-from weather_app.weather.domain.weather import WeatherDTO
 
 
 class DeleteOneWeatherCommand(Command):
