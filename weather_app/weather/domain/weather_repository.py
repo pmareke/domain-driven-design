@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 from weather_app.weather.domain.weather import Weather
 
 
@@ -9,5 +9,5 @@ class WeatherRepository(ABC):
         pass
 
     @abstractmethod
-    def find(self, city_id: str) -> Weather:
+    def find(self, city_id: str) -> Optional[Weather]:
         pass

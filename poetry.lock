@@ -49,7 +49,7 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "certifi"
 version = "2022.9.24"
 description = "Python package for providing Mozilla's CA Bundle."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -57,7 +57,7 @@ python-versions = ">=3.6"
 name = "charset-normalizer"
 version = "2.1.1"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6.0"
 
@@ -98,7 +98,7 @@ graph = ["objgraph (>=1.7.2)"]
 name = "doublex"
 version = "1.9.5.1"
 description = "Python test doubles"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 develop = false
@@ -112,6 +112,18 @@ type = "git"
 url = "https://github.com/davidvilla/python-doublex"
 reference = "0ccbe65c8574169d8b723c1ef29bcbe3f2e98c20"
 resolved_reference = "0ccbe65c8574169d8b723c1ef29bcbe3f2e98c20"
+
+[[package]]
+name = "doublex-expects"
+version = "0.7.1"
+description = "Expects matchers for Doublex test doubles assertions"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+doublex = "*"
+expects = ">=0.8.0rc1"
 
 [[package]]
 name = "execnet"
@@ -128,7 +140,7 @@ testing = ["pre-commit"]
 name = "expects"
 version = "0.9.0"
 description = "Expressive and extensible TDD/BDD assertion library for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -347,7 +359,7 @@ python-versions = ">=3.6"
 name = "pyhamcrest"
 version = "2.0.4"
 description = "Hamcrest framework for matcher objects"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -481,7 +493,7 @@ python-versions = ">=3.6"
 name = "requests"
 version = "2.28.1"
 description = "Python HTTP for Humans."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7, <4"
 
@@ -499,7 +511,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -562,7 +574,7 @@ python-versions = ">=3.7"
 name = "urllib3"
 version = "1.26.12"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
 
@@ -644,7 +656,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.10"
-content-hash = "695664edf1e513ef51a5119b7983a933bcfc0d249f9d94e8ff2650dfafbbf2b3"
+content-hash = "ab42214422fe7563e7a7ba4aa775676919fb5548d97174c587a462cb9725e793"
 
 [metadata.files]
 anyio = []
@@ -659,6 +671,9 @@ click = [
 colorama = []
 dill = []
 doublex = []
+doublex-expects = [
+    {file = "doublex-expects-0.7.1.tar.gz", hash = "sha256:8040682d97f0a66f632c5df982f78d09aee36b2c4a1eb275b0c596d115f200aa"},
+]
 execnet = [
     {file = "execnet-1.9.0-py2.py3-none-any.whl", hash = "sha256:a295f7cc774947aac58dde7fdc85f4aa00c42adf5d8f5468fc630c1acf30a142"},
     {file = "execnet-1.9.0.tar.gz", hash = "sha256:8f694f3ba9cc92cab508b152dcfe322153975c29bda272e2fd7f3f00f36e47c5"},

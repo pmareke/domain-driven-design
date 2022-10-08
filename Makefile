@@ -43,12 +43,12 @@ check-format:
 
 .PHONY: check-style
 check-style:
-	poetry run flake8 .
-	poetry run pylint ./*
+	poetry run flake8 weather_app/
+	poetry run pylint weather_app/**
 
 .PHONY: reformat
 reformat:  ## Format python code
-	poetry run yapf --parallel --recursive --in-place **/*.py
+	poetry run yapf --parallel --recursive --in-place weather_app/**/*.py
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests

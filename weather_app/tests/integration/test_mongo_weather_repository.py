@@ -16,6 +16,7 @@ class TestPyMongoWeatherRepository:
         city_weather = weathers[0]
 
         weather = repository.find(city_id=city_weather.weather_id)
+        assert weather
 
         expect(weather.city).to(equal(city_weather.city))
         expect(weather.temperature).not_to(be(-10))

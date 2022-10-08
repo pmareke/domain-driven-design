@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -15,11 +15,10 @@ class PyMongoWeatherRepository(WeatherRepository):
         weathers = self.database.weather.find()
         return [self._create_weather(weather) for weather in weathers]
 
-    def find(self, city_id: str) -> Weather:
+    def find(self, city_id: str) -> Optional[Weather]:
         weather = self.database.weather.find_one({"_id": ObjectId(city_id)})
         if not weather:
-            # TODO - Add missing test
-            raise Exception
+            return None
         return self._create_weather(weather)
 
     @staticmethod

@@ -1,7 +1,7 @@
 import uuid
 
 from weather_app.weather.domain.command import Command
-from weather_app.weather.domain.weather import Weather
+from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
 from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.command_response import CommandResponse
@@ -24,4 +24,6 @@ class FindOneWeatherCommandHandler(CommandHandler):
 
     def process(self, command: FindOneWeatherCommand) -> FindOneWeatherCommandResponse:
         weather = self.repository.find(command.city_id)
+        if not weather:
+            raise WeatherNotFoundException()
         return FindOneWeatherCommandResponse(weather)

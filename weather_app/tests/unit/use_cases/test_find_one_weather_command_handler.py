@@ -1,7 +1,7 @@
-from expects import expect, be
+from expects import expect, be, raise_error
 from doublex import Stub, ANY_ARG
 from weather_app.weather.domain.weather_repository import WeatherRepository
-from weather_app.weather.domain.weather import Weather
+from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
 from weather_app.weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler, \
     FindOneWeatherCommandResponse
 
@@ -18,3 +18,12 @@ class TestFindOneWeatherCommandHandler:
         response: FindOneWeatherCommandResponse = handler.process(command)
 
         expect(response.weather.city).to(be(weather.city))
+
+    def test_raises_an_error_when_the_weather_does_not_exist(self) -> None:
+        city_id = "any-weather_id"
+        command = FindOneWeatherCommand(city_id)
+        with Stub(WeatherRepository) as repository:
+            repository.find(ANY_ARG).returns(None)
+        handler = FindOneWeatherCommandHandler(repository)
+
+        expect(lambda: handler.process(command)).to(raise_error(WeatherNotFoundException))
