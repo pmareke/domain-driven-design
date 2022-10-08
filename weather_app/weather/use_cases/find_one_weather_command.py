@@ -14,7 +14,6 @@ class FindOneWeatherCommand(Command):
 
 
 class FindOneWeatherCommandResponse(CommandResponse):
-
     def __init__(self, weather: Weather) -> None:
         self.weather = weather
 
