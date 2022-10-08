@@ -36,6 +36,10 @@ class PyMongoWeatherRepository(WeatherRepository):
     def delete(self, weather_id: str) -> None:
         self.database.weather.delete_one({"_id": ObjectId(weather_id)})
 
+    def update(self, weather_id: str, weather_dto: WeatherDTO) -> Optional[Weather]:
+        self.database.weather.update_one({"_id": ObjectId(weather_id)}, {'$set': {'city': weather_dto.city, 'temperature': weather_dto.temperature, }}, upsert=False)
+        return self.find(weather_id)
+
     @staticmethod
     def _create_weather(weather: Dict) -> Weather:
         return Weather(

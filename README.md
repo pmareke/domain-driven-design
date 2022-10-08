@@ -23,3 +23,4 @@ the result to the Delivery layer again.
 - GET     - `/api/v1/weather/:id`: gets the weather of a given city.
 - POST    - `/api/v1/weather`: creates a weather in the database.
 - DELETE  - `/api/v1/weather/:id`: deletes the weather of a given city.
+- UPDATE  - `/api/v1/weather/:id`: updates the weather of a given city.

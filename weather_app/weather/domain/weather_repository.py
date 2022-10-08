@@ -19,3 +19,7 @@ class WeatherRepository(ABC):
     @abstractmethod
     def delete(self, weather_id: str) -> None:
         pass
+
+    @abstractmethod
+    def update(self, weather_id: str, weather_dto: WeatherDTO) -> Weather:
+        pass
