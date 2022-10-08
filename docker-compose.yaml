@@ -13,7 +13,7 @@ services:
       - "mongo-seed"
 
   mongo-seed:
-    build: weather_app/mongo-seed
+    build: mongo-seed
     depends_on:
       - "mongo"
 

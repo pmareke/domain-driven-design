@@ -1,6 +1,6 @@
 FROM mongo
 
-COPY ./weathers.json /init.json
+COPY weathers.json /init.json
 
 CMD mongoimport --drop --host mongo --db weather --collection weather --mode delete --type json --file /init.json --jsonArray
 
