@@ -24,6 +24,7 @@ class InMemoryWeatherRepository(WeatherRepository):
             city=weather.city
         )
         self.weathers.append(weather)
+        assert weather.weather_id
         return weather.weather_id
 
     def delete(self, weather_id: str) -> None:
@@ -33,9 +34,9 @@ class InMemoryWeatherRepository(WeatherRepository):
                 break
 
     def update(self, weather: Weather) -> Optional[Weather]:
-        for weather in self.weathers:
-            if weather.weather_id == weather.weather_id:
-                weather.city = weather.city
-                weather.temperature = weather.temperature
-                return weather
+        for in_memory_weather in self.weathers:
+            if in_memory_weather.weather_id == weather.weather_id:
+                in_memory_weather.city = weather.city
+                in_memory_weather.temperature = weather.temperature
+                return in_memory_weather
         return None

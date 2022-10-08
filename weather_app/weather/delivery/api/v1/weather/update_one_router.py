@@ -22,19 +22,20 @@ def update_weather(
     handler: CommandHandler = Depends(_update_one_command_handler)
 ) -> Weather:
     try:
-        weather = Weather(weather_id=weather_id, temperature=weather_request.temperature, city=weather_request.city)
-        command = UpdateOneWeatherCommand(weather)
+        command = UpdateOneWeatherCommand(weather_id,
+                                          weather_request.temperature,
+                                          weather_request.city)
         updated_weather = handler.process(command)
     except WeatherInvalidException as exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"The request temperature: {weather_request.temperature}, city: {weather_request.city} is not valid"
-        )from exception
+            detail=
+            f"The request temperature: {weather_request.temperature}, city: {weather_request.city} is not valid"
+        ) from exception
     except WeatherNotFoundException as exception:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Weather {weather_id} not found"
-        ) from exception
+            detail=f"Weather {weather_id} not found") from exception
 
     response.status_code = status.HTTP_204_NO_CONTENT
     weather: Weather = updated_weather.weather

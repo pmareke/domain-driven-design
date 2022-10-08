@@ -15,6 +15,7 @@ class TestPyMongoWeatherRepository:
         repository = PyMongoWeatherRepository()
         weathers = repository.find_all()
         city_weather = weathers[0]
+        assert city_weather.weather_id
 
         weather = repository.find(weather_id=city_weather.weather_id)
         assert weather
@@ -23,21 +24,21 @@ class TestPyMongoWeatherRepository:
         expect(weather.temperature).not_to(be(-10))
 
     def test_creates_a_weathers(self) -> None:
-        weather_Request: Weather = Weather(temperature=0, city="London")
+        weather_request: Weather = Weather(temperature=0, city="London")
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_Request)
+        weather_id = repository.save(weather_request)
         weather = repository.find(weather_id)
 
         assert weather
-        expect(weather_Request.city).to(equal(weather.city))
-        expect(weather_Request.temperature).not_to(be(-10))
+        expect(weather_request.city).to(equal(weather.city))
+        expect(weather_request.temperature).not_to(be(-10))
 
     def test_deletes_a_weathers(self) -> None:
-        weather_Request: Weather = Weather(temperature=0, city="London")
+        weather_request: Weather = Weather(temperature=0, city="London")
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_Request)
+        weather_id = repository.save(weather_request)
 
         weather = repository.find(weather_id)
         assert weather
@@ -52,8 +53,10 @@ class TestPyMongoWeatherRepository:
 
         weather_id = repository.save(weather)
 
-        new_weather = repository.update(Weather(weather_id=weather_id, temperature=10, city="Paris"))
-        assert weather
+        new_weather = repository.update(
+            Weather(weather_id=weather_id, temperature=10, city="Paris")
+        )
+        assert new_weather
 
         expect(weather.city).not_to(equal(new_weather.city))
         expect(weather.temperature).not_to(equal(new_weather.temperature))

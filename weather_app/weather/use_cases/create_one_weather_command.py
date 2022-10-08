@@ -8,8 +8,9 @@ from weather_app.weather.domain.weather import Weather
 
 
 class CreateOneWeatherCommand(Command):
-    def __init__(self, weather: Weather) -> None:
-        self.weather = weather
+    def __init__(self, temperature: int, city: str) -> None:
+        self.temperature = temperature
+        self.city = city
         super().__init__(uuid.uuid1())
 
 
@@ -25,5 +26,6 @@ class CreateOneWeatherCommandHandler(CommandHandler):
     def process(
         self, command: CreateOneWeatherCommand
     ) -> CreateOneWeatherCommandResponse:
-        weather_id = self.repository.save(command.weather)
+        weather = Weather(command.temperature, command.city)
+        weather_id = self.repository.save(weather)
         return CreateOneWeatherCommandResponse(weather_id)

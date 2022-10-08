@@ -1,6 +1,5 @@
 from expects import expect, be
 from doublex import Stub, ANY_ARG
-from weather_app.weather.domain.weather import Weather
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.use_cases.create_one_weather_command import CreateOneWeatherCommand, CreateOneWeatherCommandHandler, CreateOneWeatherCommandResponse
 
@@ -8,8 +7,7 @@ from weather_app.weather.use_cases.create_one_weather_command import CreateOneWe
 class TestCreateOneWeatherCommandHandler:
     def test_create_one_weather(self) -> None:
         weather_id = "any-weather_id"
-        weather = Weather(weather_id=weather_id, temperature=20, city="Madrid")
-        command = CreateOneWeatherCommand(weather)
+        command = CreateOneWeatherCommand(20, "Madrid")
         with Stub(WeatherRepository) as repository:
             repository.save(ANY_ARG).returns(weather_id)
         handler = CreateOneWeatherCommandHandler(repository)
