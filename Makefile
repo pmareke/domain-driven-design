@@ -39,7 +39,7 @@ check-typing:  ## Run a static analyzer over the code to find issues
 
 .PHONY: check-format
 check-format:
-	poetry run yapf --diff --recursive **/*.py
+	poetry run yapf --diff --recursive weather_app/**/*.py
 
 .PHONY: check-style
 check-style:
@@ -52,15 +52,15 @@ reformat:  ## Format python code
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests
-	docker-compose run --rm --no-deps weather poetry run pytest -n auto tests/unit -ra
+	docker-compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
 
 .PHONY: test-integration
 test-integration: ## Run all integration tests
-	docker-compose run --rm weather poetry run pytest -n auto tests/integration -ra
+	docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/integration -ra
 
 .PHONY: test-acceptance
 test-acceptance: ## Run all acceptance tests
-	docker-compose run --rm weather poetry run pytest -n auto tests/acceptance -ra
+	docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/acceptance -ra
 
 .PHONY: test
 test: test-unit test-integration test-acceptance

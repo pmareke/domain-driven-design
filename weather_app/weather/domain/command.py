@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional
+from uuid import UUID
 
 
 @dataclass
 class Command:
-    id: str
+    command_id: UUID

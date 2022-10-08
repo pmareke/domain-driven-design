@@ -1,14 +1,17 @@
+from typing import List, Dict
+
 from fastapi import APIRouter, Depends
-from weather.domain.command_handler import CommandHandler
-from weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, FindAllWeathersCommandHandler
-from weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler
-from weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
+from weather_app.weather.domain.command_handler import CommandHandler
+from weather_app.weather.domain.weather import Weather
+from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, FindAllWeathersCommandHandler
+from weather_app.weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler
+from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
 
 router = APIRouter()
 
 
 @router.get("/health")
-def health():
+def health() -> Dict[str, bool]:
     return {"ok": True}
 
 
@@ -18,10 +21,10 @@ async def _find_all_command_handler() -> CommandHandler:
 
 
 @router.get("/api/v1/weather")
-def weather(handler: CommandHandler = Depends(_find_all_command_handler)):
+def find_all_weathers(handler: CommandHandler = Depends(_find_all_command_handler)) -> Dict[str, List[Weather]]:
     command = FindAllWeathersCommand()
     weathers_response = handler.process(command)
-    return {"weathers": weathers_response}
+    return {"weathers": weathers_response.weathers}
 
 
 async def _find_one_command_handler() -> CommandHandler:
@@ -30,15 +33,10 @@ async def _find_one_command_handler() -> CommandHandler:
 
 
 @router.get("/api/v1/weather/{city_id}")
-def weather_by_city(
+def find_weather(
     city_id: str, handler: CommandHandler = Depends(_find_one_command_handler)
-):
+) -> Weather:
     command = FindOneWeatherCommand(city_id)
     weather_response = handler.process(command)
-    return {
-        "weather":
-            {
-                "temperature": weather_response.temperature,
-                "city": weather_response.city,
-            }
-    }
+    weather: Weather = weather_response.weather
+    return weather

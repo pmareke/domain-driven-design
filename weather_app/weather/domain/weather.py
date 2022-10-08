@@ -3,6 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class Weather:
-    id: str
+    weather_id: str
     temperature: int
     city: str

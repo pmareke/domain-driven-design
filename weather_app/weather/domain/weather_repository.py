@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from weather.domain.weather import Weather
+from weather_app.weather.domain.weather import Weather
 
 
 class WeatherRepository(ABC):

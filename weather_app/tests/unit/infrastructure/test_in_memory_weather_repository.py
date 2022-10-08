@@ -1,4 +1,4 @@
-from weather.infrastructure.in_memory_weather_repository import InMemoryWeatherRepository
+from weather_app.weather.infrastructure.in_memory_weather_repository import InMemoryWeatherRepository
 from expects import expect, be_empty
 
 
