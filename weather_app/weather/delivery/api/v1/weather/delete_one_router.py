@@ -11,10 +11,10 @@ async def _delete_one_command_handler() -> CommandHandler:
     return DeleteOneWeatherCommandHandler(repository)
 
 
-@delete_one_router.delete("/api/v1/weather/{city_id}")
+@delete_one_router.delete("/api/v1/weather/{weather_id}")
 def delete_weather(
-    city_id: str,
+    weather_id: str,
     handler: CommandHandler = Depends(_delete_one_command_handler)
 ) -> None:
-    command = DeleteOneWeatherCommand(city_id)
+    command = DeleteOneWeatherCommand(weather_id)
     handler.process(command)
