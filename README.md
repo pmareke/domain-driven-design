@@ -13,7 +13,7 @@ This command handlers talks with the **Infrastructure** and **Domain** layers an
 the result to the **Delivery** layer again.
 
 ## Design
-![Layers](./images/DDD.png)
+![Layers](./images/layers.png)
 
 ## App Layers
 - Delivery: API Rest using FastAPI.
