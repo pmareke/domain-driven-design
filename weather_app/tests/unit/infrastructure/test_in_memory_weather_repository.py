@@ -1,50 +1,50 @@
 from expects import expect, be_empty, be_none, equal
+from weather_app.weather.domain.weather import Weather
 from weather_app.weather.infrastructure.in_memory_weather_repository import InMemoryWeatherRepository
-from weather_app.weather.domain.weather import WeatherDTO
 
 
 class TestInMemoryWeatherRepository:
     def test_finds_all_weathers(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather_dto = WeatherDTO(temperature=10, city="Paris")
+        weather = Weather(temperature=10, city="Paris")
 
-        repository.save(weather_dto)
+        repository.save(weather)
         weathers = repository.find_all()
 
         expect(weathers).not_to(be_empty)
 
     def test_finds_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather_dto = WeatherDTO(temperature=10, city="Paris")
+        weather = Weather(temperature=10, city="Paris")
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather)
         weather = repository.find(weather_id)
 
         expect(weather).not_to(be_none)
 
     def test_saves_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather_dto = WeatherDTO(temperature=10, city="Paris")
+        weather_ = Weather(temperature=10, city="Paris")
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather_)
 
         weather = repository.find(weather_id)
         assert weather
 
-        expect(weather.city).to(equal(weather_dto.city))
-        expect(weather.temperature).to(equal(weather_dto.temperature))
+        expect(weather.city).to(equal(weather.city))
+        expect(weather.temperature).to(equal(weather.temperature))
 
     def test_deletes_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather_dto = WeatherDTO(temperature=10, city="Paris")
+        weather = Weather(temperature=10, city="Paris")
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather)
 
         weather = repository.find(weather_id)
         assert weather
 
-        expect(weather.city).to(equal(weather_dto.city))
-        expect(weather.temperature).to(equal(weather_dto.temperature))
+        expect(weather.city).to(equal(weather.city))
+        expect(weather.temperature).to(equal(weather.temperature))
 
         repository.delete(weather_id)
 
@@ -52,14 +52,14 @@ class TestInMemoryWeatherRepository:
         expect(weather).to(be_none)
 
     def test_updates_one_weather(self) -> None:
-        weather_dto: WeatherDTO = WeatherDTO(temperature=0, city="London")
-        new_weather_dto: WeatherDTO = WeatherDTO(temperature=10, city="Paris")
+        weather: Weather = Weather(temperature=0, city="London")
         repository = InMemoryWeatherRepository()
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather)
+        new_weather: Weather = Weather(weather_id=weather_id, temperature=10, city="Paris")
 
-        weather = repository.update(weather_id, new_weather_dto)
+        weather = repository.update(new_weather)
         assert weather
 
-        expect(weather_dto.city).not_to(equal(weather.city))
-        expect(weather_dto.temperature).not_to(equal(weather.temperature))
+        expect(weather.city).not_to(equal(new_weather.city))
+        expect(weather.temperature).not_to(equal(new_weather.temperature))

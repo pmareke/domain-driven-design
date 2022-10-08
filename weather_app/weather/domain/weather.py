@@ -1,29 +1,25 @@
 from dataclasses import dataclass
-
+from lib2to3.pgen2.token import OP
+from typing import Optional
 
 @dataclass
-class WeatherDTO:
+class Weather:
     temperature: int
     city: str
+    weather_id: Optional[str]
 
-    def validate(self) -> None:
+    def __init__(self, temperature: int, city: str, weather_id: Optional[str] = None) -> None:
+        self.temperature = temperature
+        self.city = city
+        self.weather_id = weather_id
         if self.city == "":
-            raise WeatherDTOInvalidException()
+            raise WeatherInvalidException()
         if self.temperature > 100 or self.temperature < -100:
-            raise WeatherDTOInvalidException()
-
-    def __str__(self) -> str:
-        return f"temperature: {self.temperature}, city: {self.city}"
-
-
-@dataclass
-class Weather(WeatherDTO):
-    weather_id: str
-
+            raise WeatherInvalidException()
 
 class WeatherNotFoundException(Exception):
     pass
 
 
-class WeatherDTOInvalidException(Exception):
+class WeatherInvalidException(Exception):
     pass

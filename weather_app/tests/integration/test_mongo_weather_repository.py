@@ -1,6 +1,6 @@
 from expects import expect, be, be_empty, equal
+from weather_app.weather.domain.weather import Weather
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
-from weather_app.weather.domain.weather import WeatherDTO
 
 
 class TestPyMongoWeatherRepository:
@@ -23,21 +23,21 @@ class TestPyMongoWeatherRepository:
         expect(weather.temperature).not_to(be(-10))
 
     def test_creates_a_weathers(self) -> None:
-        weather_dto: WeatherDTO = WeatherDTO(temperature=0, city="London")
+        weather_Request: Weather = Weather(temperature=0, city="London")
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather_Request)
         weather = repository.find(weather_id)
 
         assert weather
-        expect(weather_dto.city).to(equal(weather.city))
-        expect(weather_dto.temperature).not_to(be(-10))
+        expect(weather_Request.city).to(equal(weather.city))
+        expect(weather_Request.temperature).not_to(be(-10))
 
     def test_deletes_a_weathers(self) -> None:
-        weather_dto: WeatherDTO = WeatherDTO(temperature=0, city="London")
+        weather_Request: Weather = Weather(temperature=0, city="London")
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather_Request)
 
         weather = repository.find(weather_id)
         assert weather
@@ -47,14 +47,13 @@ class TestPyMongoWeatherRepository:
         assert not weather
 
     def test_updates_a_weathers(self) -> None:
-        weather_dto: WeatherDTO = WeatherDTO(temperature=0, city="London")
-        new_weather_dto: WeatherDTO = WeatherDTO(temperature=10, city="Paris")
+        weather: Weather = Weather(temperature=0, city="London")
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_dto)
+        weather_id = repository.save(weather)
 
-        weather = repository.update(weather_id, new_weather_dto)
+        new_weather = repository.update(Weather(weather_id=weather_id, temperature=10, city="Paris"))
         assert weather
 
-        expect(weather_dto.city).not_to(equal(weather.city))
-        expect(weather_dto.temperature).not_to(equal(weather.temperature))
+        expect(weather.city).not_to(equal(new_weather.city))
+        expect(weather.temperature).not_to(equal(new_weather.temperature))

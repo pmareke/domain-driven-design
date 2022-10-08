@@ -4,11 +4,11 @@ from weather_app.weather.domain.command import Command
 from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.command_response import CommandResponse
-from weather_app.weather.domain.weather import WeatherDTO
+from weather_app.weather.domain.weather import Weather
 
 
 class CreateOneWeatherCommand(Command):
-    def __init__(self, weather: WeatherDTO) -> None:
+    def __init__(self, weather: Weather) -> None:
         self.weather = weather
         super().__init__(uuid.uuid1())
 
