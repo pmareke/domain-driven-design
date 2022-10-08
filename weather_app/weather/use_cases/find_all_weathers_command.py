@@ -1,3 +1,4 @@
+import uuid
 from typing import List
 from weather.domain.command import Command
 from weather.domain.weather import Weather
@@ -6,7 +7,9 @@ from weather.domain.weather_repository import WeatherRepository
 
 
 class FindAllWeathersCommand(Command):
-    pass
+
+    def __init__(self) -> None:
+        super().__init__(uuid.uuid1())
 
 
 class FindAllWeathersCommandHandler(CommandHandler):

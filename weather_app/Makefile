@@ -21,9 +21,13 @@ install: ## Install all dependencies
 update: ## Update dependencies
 	poetry update
 
-.PHONY: run
-run:    ## Run the app
-	docker-compose up
+.PHONY: up
+up:    ## Run the app
+	docker-compose up --build weather
+
+.PHONY: down
+down: ## Stop and remove all the Docker services, volumes and networks
+	docker-compose down -v --remove-orphans
 
 .PHONY: dev
 dev:    ## Run the server in dev mode
@@ -48,15 +52,15 @@ reformat:  ## Format python code
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests
-	docker-compose run --rm --no-deps weather poetry run pytest -n auto tests/unit
+	docker-compose run --rm --no-deps weather poetry run pytest -n auto tests/unit -ra
 
 .PHONY: test-integration
 test-integration: ## Run all integration tests
-	docker-compose run --rm weather poetry run pytest -n auto tests/integration
+	docker-compose run --rm weather poetry run pytest -n auto tests/integration -ra
 
 .PHONY: test-acceptance
 test-acceptance: ## Run all acceptance tests
-	docker-compose run --rm weather poetry run pytest -n auto tests/acceptance
+	docker-compose run --rm weather poetry run pytest -n auto tests/acceptance -ra
 
 .PHONY: test
 test: test-unit test-integration test-acceptance
