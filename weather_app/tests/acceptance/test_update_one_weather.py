@@ -34,9 +34,9 @@ class TestWeather:
         expect(get_json["temperature"]).not_to(equal(temperature))
 
     def test_returns_not_found(self) -> None:
-        any_non_existing_city_id = "507f1f77bcf86cd799439011"
+        any_weather_id = "507f1f77bcf86cd799439011"
         response = client.put(
-            f"/api/v1/weather/{any_non_existing_city_id}",
+            f"/api/v1/weather/{any_weather_id}",
             json={
                 "temperature": 100,
                 "city": "Madrid"
@@ -46,5 +46,19 @@ class TestWeather:
         weather_json = response.json()
         expect(response.status_code).to(be(status.HTTP_404_NOT_FOUND))
         expect(weather_json["detail"]).to(
-            equal(f"Weather {any_non_existing_city_id} not found")
+            equal(f"Weather {any_weather_id} not found")
+        )
+
+    def test_returns_not_bad_request(self) -> None:
+        any_weather_id = "507f1f77bcf86cd799439011"
+        invalid_city = ""
+        payload = {"temperature": 100, "city": invalid_city}
+        response = client.put(f"/api/v1/weather/{any_weather_id}", json=payload)
+
+        weather_json = response.json()
+        expect(response.status_code).to(be(status.HTTP_400_BAD_REQUEST))
+        expect(weather_json["detail"]).to(
+            equal(
+                f"The request temperature: {payload['temperature']}, city: {payload['city']} is not valid"
+            )
         )
