@@ -20,10 +20,12 @@ class TestFindOneWeatherCommandHandler:
         expect(response.weather.city).to(be(weather.city))
 
     def test_raises_an_error_when_the_weather_does_not_exist(self) -> None:
-        city_id = "any-weather_id"
-        command = FindOneWeatherCommand(city_id)
+        weather_id = "any-weather_id"
+        command = FindOneWeatherCommand(weather_id)
         with Stub(WeatherRepository) as repository:
             repository.find(ANY_ARG).returns(None)
         handler = FindOneWeatherCommandHandler(repository)
 
-        expect(lambda: handler.process(command)).to(raise_error(WeatherNotFoundException))
+        expect(lambda: handler.process(command)).to(
+            raise_error(WeatherNotFoundException)
+        )
