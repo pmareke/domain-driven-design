@@ -1,4 +1,8 @@
 # Domain Driven Design example using Python
+e# Components
+The app is build upon **docker** and **docker-compose**. The main webapp is a Python docker application
+connected to a Mongo database using docker-compose.
+
 
 This repository is a work in progress exercise applying **DDD** to a weather app.
 
@@ -23,6 +27,8 @@ connected to a Mongo database using docker-compose.
 
 
 ## API endpoints
+![Open API](./images/openapi.png)
+
 - GET     - `/health`: status of the app.
 - GET     - `/api/v1/weather`: list the weather in all cities in the database.
 - GET     - `/api/v1/weather/:id`: gets the weather of a given city.
