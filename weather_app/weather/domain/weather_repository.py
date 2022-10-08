@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from weather_app.weather.domain.weather import Weather
+from weather_app.weather.domain.weather import Weather, WeatherDTO
 
 
 class WeatherRepository(ABC):
@@ -10,4 +10,8 @@ class WeatherRepository(ABC):
 
     @abstractmethod
     def find(self, city_id: str) -> Optional[Weather]:
+        pass
+
+    @abstractmethod
+    def save(self, weather_dto: WeatherDTO) -> str:
         pass

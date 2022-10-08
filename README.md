@@ -19,5 +19,6 @@ the result to the Delivery layer again.
 
 ## API endpoints
 - `/health`: status of the app.
-- `/api/v1/weather`: list the weather in all cities in the database.
-- `/api/v1/weather/:id`: get the weather of a given city.
+- GET  - `/api/v1/weather`: list the weather in all cities in the database.
+- GET  - `/api/v1/weather/:id`: get the weather of a given city.
+- POST - `/api/v1/weather`: creates a weather in the database.

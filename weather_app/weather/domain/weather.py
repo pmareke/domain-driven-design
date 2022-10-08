@@ -2,10 +2,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Weather:
-    weather_id: str
+class WeatherDTO:
     temperature: int
     city: str
+
+
+@dataclass
+class Weather(WeatherDTO):
+    weather_id: str
 
 
 class WeatherNotFoundException(Exception):

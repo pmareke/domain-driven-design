@@ -22,7 +22,9 @@ class FindOneWeatherCommandHandler(CommandHandler):
     def __init__(self, repository: WeatherRepository):
         self.repository = repository
 
-    def process(self, command: FindOneWeatherCommand) -> FindOneWeatherCommandResponse:
+    def process(
+        self, command: FindOneWeatherCommand
+    ) -> FindOneWeatherCommandResponse:
         weather = self.repository.find(command.city_id)
         if not weather:
             raise WeatherNotFoundException()
