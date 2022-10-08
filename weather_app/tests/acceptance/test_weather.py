@@ -61,3 +61,21 @@ class TestWeather:
         expect(response.status_code).to(be(status.HTTP_200_OK))
         expect(weather_json["city"]).to(equal("Roma"))
         expect(weather_json["temperature"]).to(equal(100))
+
+    def test_deletes_a_weather(self) -> None:
+        response = client.post(
+            "/api/v1/weather", json={
+                "temperature": 100,
+                "city": "Roma"
+            }
+        )
+
+        created_weather = response.json()
+        expect(response.status_code).to(be(status.HTTP_201_CREATED))
+        city_id = created_weather["id"]
+
+        response = client.delete(f"/api/v1/weather/{city_id}")
+        expect(response.status_code).to(be(status.HTTP_200_OK))
+
+        response = client.get(f"/api/v1/weather/{city_id}")
+        expect(response.status_code).to(be(status.HTTP_404_NOT_FOUND))

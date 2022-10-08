@@ -18,7 +18,8 @@ the result to the Delivery layer again.
 - Domain: Domain objects.
 
 ## API endpoints
-- `/health`: status of the app.
-- GET  - `/api/v1/weather`: list the weather in all cities in the database.
-- GET  - `/api/v1/weather/:id`: get the weather of a given city.
-- POST - `/api/v1/weather`: creates a weather in the database.
+- GET     - `/health`: status of the app.
+- GET     - `/api/v1/weather`: list the weather in all cities in the database.
+- GET     - `/api/v1/weather/:id`: gets the weather of a given city.
+- POST    - `/api/v1/weather`: creates a weather in the database.
+- DELETE  - `/api/v1/weather/:id`: deletes the weather of a given city.

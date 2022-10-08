@@ -9,9 +9,13 @@ class WeatherRepository(ABC):
         pass
 
     @abstractmethod
-    def find(self, city_id: str) -> Optional[Weather]:
+    def find(self, weather_id: str) -> Optional[Weather]:
         pass
 
     @abstractmethod
     def save(self, weather_dto: WeatherDTO) -> str:
+        pass
+
+    @abstractmethod
+    def delete(self, weather_id: str) -> None:
         pass

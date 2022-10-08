@@ -7,6 +7,7 @@ from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
 from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, FindAllWeathersCommandHandler
 from weather_app.weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler
 from weather_app.weather.use_cases.create_one_weather_command import CreateOneWeatherCommand, CreateOneWeatherCommandHandler
+from weather_app.weather.use_cases.delete_one_weather_command import DeleteOneWeatherCommand, DeleteOneWeatherCommandHandler, DeleteOneWeatherCommandResponse
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
 
 router = APIRouter()
@@ -68,3 +69,18 @@ def create_weather(
     weather_response = handler.process(command)
     response.status_code = status.HTTP_201_CREATED
     return {"id": weather_response.weather_id}
+
+
+async def _delete_one_command_handler() -> CommandHandler:
+    repository = PyMongoWeatherRepository()
+    return DeleteOneWeatherCommandHandler(repository)
+
+
+@router.delete("/api/v1/weather/{city_id}")
+def create_weather(
+    city_id: str,
+    handler: CommandHandler = Depends(_delete_one_command_handler)
+) -> Dict:
+    command = DeleteOneWeatherCommand(city_id)
+    handler.process(command)
+    return

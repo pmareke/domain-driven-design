@@ -32,3 +32,16 @@ class TestPyMongoWeatherRepository:
         assert weather
         expect(weather_dto.city).to(equal(weather.city))
         expect(weather_dto.temperature).not_to(be(-10))
+
+    def test_deletes_a_weathers(self) -> None:
+        weather_dto: WeatherDTO = WeatherDTO(temperature=0, city="London")
+        repository = PyMongoWeatherRepository()
+
+        weather_id = repository.save(weather_dto)
+
+        weather = repository.find(weather_id)
+        assert weather
+
+        repository.delete(weather_id)
+        weather = repository.find(weather_id)
+        assert not weather

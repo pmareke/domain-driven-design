@@ -18,8 +18,8 @@ class PyMongoWeatherRepository(WeatherRepository):
         weathers = self.database.weather.find()
         return [self._create_weather(weather) for weather in weathers]
 
-    def find(self, city_id: str) -> Optional[Weather]:
-        weather = self.database.weather.find_one({"_id": ObjectId(city_id)})
+    def find(self, weather_id: str) -> Optional[Weather]:
+        weather = self.database.weather.find_one({"_id": ObjectId(weather_id)})
         if not weather:
             return None
         return self._create_weather(weather)
@@ -32,6 +32,9 @@ class PyMongoWeatherRepository(WeatherRepository):
             }
         )
         return str(record.inserted_id)
+
+    def delete(self, weather_id: str) -> None:
+        self.database.weather.delete_one({"_id": ObjectId(weather_id)})
 
     @staticmethod
     def _create_weather(weather: Dict) -> Weather:
