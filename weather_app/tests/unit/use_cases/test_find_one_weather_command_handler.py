@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from expects import expect, be, raise_error
 from doublex import Stub, ANY_ARG
 from weather_app.weather.domain.weather_repository import WeatherRepository
@@ -8,7 +9,7 @@ from weather_app.weather.use_cases.find_one_weather_command import FindOneWeathe
 
 class TestFindOneWeatherCommandHandler:
     def test_finds_one_weather(self) -> None:
-        weather_id = "any-weather_id"
+        weather_id = str(ObjectId())
         weather = Weather(weather_id=weather_id, temperature=20, city="Madrid")
         command = FindOneWeatherCommand(weather_id)
         with Stub(WeatherRepository) as repository:
@@ -20,7 +21,7 @@ class TestFindOneWeatherCommandHandler:
         expect(response.weather.city).to(be(weather.city))
 
     def test_raises_an_error_when_the_weather_does_not_exist(self) -> None:
-        weather_id = "any-weather_id"
+        weather_id = str(ObjectId())
         command = FindOneWeatherCommand(weather_id)
         with Stub(WeatherRepository) as repository:
             repository.find(ANY_ARG).returns(None)

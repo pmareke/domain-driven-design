@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from expects import expect
 from doublex import Spy
 from doublex_expects import have_been_called_with
@@ -8,7 +9,7 @@ from weather_app.weather.domain.weather import Weather
 
 class TestCreateOneWeatherCommandHandler:
     def test_create_one_weather(self) -> None:
-        weather_id = "any-weather-id"
+        weather_id = str(ObjectId())
         temperature = 20
         city = "Madrid"
         weather = Weather(weather_id, temperature, city)

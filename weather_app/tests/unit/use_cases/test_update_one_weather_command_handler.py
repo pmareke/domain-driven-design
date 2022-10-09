@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from expects import expect, be
 from doublex import Stub, ANY_ARG
 from weather_app.weather.domain.weather_repository import WeatherRepository
@@ -8,7 +9,7 @@ from weather_app.weather.use_cases.update_one_weather_command import UpdateOneWe
 
 class TestUpdateOneWeatherCommandHandler:
     def test_update_one_weather(self) -> None:
-        weather_id = "any-weather_id"
+        weather_id = str(ObjectId())
         temperature = 20
         city = "Madrid"
         weather = Weather(

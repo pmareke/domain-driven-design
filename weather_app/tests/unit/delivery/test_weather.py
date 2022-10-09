@@ -22,3 +22,10 @@ class TestWeather:
             lambda:
             Weather(weather_id=weather_id, temperature=10000, city="Madrid")
         ).to(raise_error(WeatherInvalidException))
+
+    def test_raise_an_error_is_the_id_is_not_valid(self) -> None:
+        weather_id = "any-invalid-id"
+        expect(
+            lambda:
+            Weather(weather_id=weather_id, temperature=10, city="Madrid")
+        ).to(raise_error(WeatherInvalidException))

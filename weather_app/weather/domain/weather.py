@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from bson.objectid import ObjectId
+from bson.errors import InvalidId
 
 
 @dataclass
@@ -14,6 +16,11 @@ class Weather:
         self._validate()
 
     def _validate(self) -> None:
+        try:
+            ObjectId(self.weather_id)
+        except InvalidId as exception:
+            raise WeatherInvalidException() from exception
+
         if self.city == "":
             raise WeatherInvalidException()
         if self.temperature > 100 or self.temperature < -100:

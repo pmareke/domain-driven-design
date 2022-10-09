@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response, status, HTTPException
-from weather_app.weather.delivery.api.v1.weather.weather_request import WeatherRequest
+from weather_app.weather.delivery.api.v1.weather.weather_update_request import WeatherUpdateRequest
 from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather import Weather, WeatherNotFoundException, WeatherInvalidException
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
@@ -20,7 +20,7 @@ async def _update_one_command_handler() -> CommandHandler:
 )
 def update_weather(
     weather_id: str,
-    weather_request: WeatherRequest,
+    weather_request: WeatherUpdateRequest,
     response: Response,
     handler: CommandHandler = Depends(_update_one_command_handler)
 ) -> Weather:
