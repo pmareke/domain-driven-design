@@ -36,9 +36,9 @@ class PyMongoWeatherRepository(WeatherRepository):
     def delete(self, weather_id: str) -> None:
         self.database.weather.delete_one({"_id": ObjectId(weather_id)})
 
-    def update(self, weather: Weather) -> Optional[Weather]:
+    def update(self, weather_id: str, weather: Weather) -> Optional[Weather]:
         record: UpdateResult = self.database.weather.update_one(
-            {"_id": ObjectId(weather.weather_id)}, {
+            {"_id": ObjectId(weather_id)}, {
                 '$set':
                     {
                         'city': weather.city,
@@ -49,12 +49,11 @@ class PyMongoWeatherRepository(WeatherRepository):
         )
         if not record:
             return None
-        assert weather.weather_id
-        return self.find(weather.weather_id)
+        return self.find(weather_id)
 
     @staticmethod
     def _create_weather(weather: Dict) -> Weather:
-        return Weather(
+        return Weather.from_database(
             weather_id=str(ObjectId(weather["_id"])),
             temperature=weather["temperature"],
             city=weather["city"]

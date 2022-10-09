@@ -56,11 +56,9 @@ class TestInMemoryWeatherRepository:
         repository = InMemoryWeatherRepository()
 
         weather_id = repository.save(weather)
-        new_weather: Weather = Weather(
-            weather_id=weather_id, temperature=10, city="Paris"
-        )
+        new_weather: Weather = Weather(temperature=10, city="Paris")
 
-        record = repository.update(new_weather)
+        record = repository.update(weather_id, new_weather)
         assert record
 
         expect(record.city).not_to(equal(weather.city))

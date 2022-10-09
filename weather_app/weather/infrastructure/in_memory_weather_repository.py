@@ -33,9 +33,9 @@ class InMemoryWeatherRepository(WeatherRepository):
                 self.weathers.remove(weather)
                 break
 
-    def update(self, weather: Weather) -> Optional[Weather]:
+    def update(self, weather_id: str, weather: Weather) -> Optional[Weather]:
         for in_memory_weather in self.weathers:
-            if in_memory_weather.weather_id == weather.weather_id:
+            if in_memory_weather.weather_id == weather_id:
                 in_memory_weather.city = weather.city
                 in_memory_weather.temperature = weather.temperature
                 return in_memory_weather

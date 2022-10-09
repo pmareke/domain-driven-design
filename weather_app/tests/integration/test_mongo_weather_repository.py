@@ -54,7 +54,7 @@ class TestPyMongoWeatherRepository:
         weather_id = repository.save(weather)
 
         new_weather = repository.update(
-            Weather(weather_id=weather_id, temperature=10, city="Paris")
+            weather_id, Weather(temperature=10, city="Paris")
         )
         assert new_weather
 
