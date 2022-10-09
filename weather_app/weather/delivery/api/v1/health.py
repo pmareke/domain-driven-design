@@ -1,9 +1,9 @@
 from typing import Dict
 from fastapi import APIRouter
 
-router = APIRouter()
+health_router = APIRouter()
 
 
-@router.get("/health")
+@health_router.get("/api/v1/health")
 def health() -> Dict[str, bool]:
     return {"ok": True}

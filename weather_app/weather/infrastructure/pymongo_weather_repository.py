@@ -49,6 +49,7 @@ class PyMongoWeatherRepository(WeatherRepository):
         )
         if not record:
             return None
+        assert weather.weather_id
         return self.find(weather.weather_id)
 
     @staticmethod

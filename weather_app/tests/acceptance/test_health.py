@@ -9,7 +9,7 @@ client = TestClient(app)
 
 class TestHeath:
     def test_health(self) -> None:
-        response = client.get("/health")
+        response = client.get("/api/v1/health")
 
         expect(response.status_code).to(be(status.HTTP_200_OK))
         expect(response.json()["ok"]).to(be_true)

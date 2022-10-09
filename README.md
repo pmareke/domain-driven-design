@@ -28,7 +28,7 @@ The docs are available at [http://localhost:8080/docs](http://localhost:8080/doc
 
 ![Open API](./images/openapi.png)
 
-- GET     - `/health`: status of the app.
+- GET     - `/api/v1/health`: status of the app.
 - GET     - `/api/v1/weather`: list the weather in all cities in the database.
 - GET     - `/api/v1/weather/:id`: gets the weather of a given city.
 - POST    - `/api/v1/weather`: creates a weather in the database.
