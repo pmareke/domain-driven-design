@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from expects import expect, be, equal
 from fastapi.testclient import TestClient
 from fastapi import status
@@ -9,18 +10,21 @@ client = TestClient(app)
 
 class TestWeather:
     def test_updates_a_weather(self) -> None:
+        weather_id = str(ObjectId())
         city = "London"
         temperature = 10
-        response = client.post(
-            "/api/v1/weather", json={
+        client.post(
+            "/api/v1/weather",
+            json={
+                "weather_id": weather_id,
                 "temperature": temperature,
                 "city": city
             }
         )
-        weather_id = response.json()["weather_id"]
         update_response = client.put(
             f"/api/v1/weather/{weather_id}",
             json={
+                "weather_id": weather_id,
                 "temperature": 100,
                 "city": "Roma"
             }
@@ -38,6 +42,7 @@ class TestWeather:
         response = client.put(
             f"/api/v1/weather/{any_weather_id}",
             json={
+                "weather_id": any_weather_id,
                 "temperature": 100,
                 "city": "Madrid"
             }
@@ -52,7 +57,11 @@ class TestWeather:
     def test_returns_not_bad_request(self) -> None:
         any_weather_id = "507f1f77bcf86cd799439011"
         invalid_city = ""
-        payload = {"temperature": 100, "city": invalid_city}
+        payload = {
+            "weather_id": any_weather_id,
+            "temperature": 100,
+            "city": invalid_city
+        }
         response = client.put(f"/api/v1/weather/{any_weather_id}", json=payload)
 
         weather_json = response.json()

@@ -26,8 +26,12 @@ class UpdateOneWeatherCommandHandler(CommandHandler):
     def process(
         self, command: UpdateOneWeatherCommand
     ) -> UpdateOneWeatherCommandResponse:
-        weather = Weather(temperature=command.temperature, city=command.city)
-        response = self.repository.update(command.weather_id, weather)
+        weather = Weather(
+            weather_id=command.weather_id,
+            temperature=command.temperature,
+            city=command.city
+        )
+        response = self.repository.update(weather)
         if not response:
             raise WeatherNotFoundException()
         return UpdateOneWeatherCommandResponse(response)

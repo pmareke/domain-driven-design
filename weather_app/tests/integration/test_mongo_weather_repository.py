@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from expects import expect, be, be_empty, equal
 from weather_app.weather.domain.weather import Weather
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
@@ -24,39 +25,53 @@ class TestPyMongoWeatherRepository:
         expect(weather.temperature).not_to(be(-10))
 
     def test_creates_a_weathers(self) -> None:
-        weather_request: Weather = Weather(temperature=0, city="London")
+        weather_id = str(ObjectId())
+        weather: Weather = Weather(
+            weather_id=weather_id, temperature=0, city="London"
+        )
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_request)
-        weather = repository.find(weather_id)
+        repository.save(weather)
+        record = repository.find(weather_id)
+        assert record
 
-        assert weather
-        expect(weather_request.city).to(equal(weather.city))
-        expect(weather_request.temperature).not_to(be(-10))
+        expect(record.weather_id).to(equal(weather_id))
 
     def test_deletes_a_weathers(self) -> None:
-        weather_request: Weather = Weather(temperature=0, city="London")
+        weather_id = str(ObjectId())
+        weather: Weather = Weather(
+            weather_id=weather_id, temperature=0, city="London"
+        )
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather_request)
+        repository.save(weather)
 
-        weather = repository.find(weather_id)
-        assert weather
+        record = repository.find(weather_id)
+        assert record
 
         repository.delete(weather_id)
-        weather = repository.find(weather_id)
-        assert not weather
+        record = repository.find(weather_id)
+        assert not record
 
-    def test_updates_a_weathers(self) -> None:
-        weather: Weather = Weather(temperature=0, city="London")
+    def test_updates_a_weather(self) -> None:
+        weather_id = str(ObjectId())
+        weather: Weather = Weather(
+            weather_id=weather_id, temperature=0, city="London"
+        )
         repository = PyMongoWeatherRepository()
 
-        weather_id = repository.save(weather)
+        repository.save(weather)
 
-        new_weather = repository.update(
-            weather_id, Weather(temperature=10, city="Paris")
+        new_temperature = 10
+        new_city = "Paris"
+        record = repository.update(
+            Weather(
+                weather_id=weather_id,
+                temperature=new_temperature,
+                city=new_city
+            )
         )
-        assert new_weather
+        assert record
 
-        expect(weather.city).not_to(equal(new_weather.city))
-        expect(weather.temperature).not_to(equal(new_weather.temperature))
+        expect(record.city).to(equal(new_city))
+        expect(record.temperature).to(equal(new_temperature))

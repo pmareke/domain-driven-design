@@ -21,5 +21,5 @@ class WeatherRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, weather_id: str, weather: Weather) -> Weather:
+    def update(self, weather: Weather) -> Weather:
         pass
