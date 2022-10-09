@@ -62,7 +62,7 @@ class TestWeather:
         expect(response.status_code).to(be(status.HTTP_400_BAD_REQUEST))
         expect(weather_json["detail"]).to(
             equal(
-                f"The request temperature: {payload['temperature']}, city: {payload['city']} is not valid"
+                f"The request id: {any_weather_id}, temperature: {payload['temperature']}, city: {invalid_city} is not valid"
             )
         )
 
@@ -75,6 +75,6 @@ class TestWeather:
         expect(response.status_code).to(be(status.HTTP_400_BAD_REQUEST))
         expect(weather_json["detail"]).to(
             equal(
-                f"The request temperature: {payload['temperature']}, city: {payload['city']} is not valid"
+                f"The request id: {any_weather_id}, temperature: {payload['temperature']}, city: {payload['city']} is not valid"
             )
         )

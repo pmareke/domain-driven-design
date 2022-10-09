@@ -28,5 +28,5 @@ def create_weather(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=
-            f"The request temperature: {weather_request.temperature}, city: {weather_request.city} is not valid"
+            f"The request id: {weather_request.weather_id}, temperature: {weather_request.temperature}, city: {weather_request.city} is not valid"
         ) from exception
