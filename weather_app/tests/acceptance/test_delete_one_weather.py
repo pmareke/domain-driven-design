@@ -18,10 +18,10 @@ class TestWeather:
 
         created_weather = response.json()
         expect(response.status_code).to(be(status.HTTP_201_CREATED))
-        weather_id = created_weather["id"]
+        weather_id = created_weather["weather_id"]
 
         response = client.delete(f"/api/v1/weather/{weather_id}")
-        expect(response.status_code).to(be(status.HTTP_200_OK))
+        expect(response.status_code).to(be(status.HTTP_204_NO_CONTENT))
 
         response = client.get(f"/api/v1/weather/{weather_id}")
         expect(response.status_code).to(be(status.HTTP_404_NOT_FOUND))

@@ -31,7 +31,7 @@ down: ## Stop and remove all the Docker services, volumes and networks
 
 .PHONY: dev
 dev:    ## Run the server in dev mode
-	poetry run uvicorn main:app --reload
+	poetry run uvicorn weather_app.main:app --reload --host 0.0.0.0 --port 8080
 
 .PHONY: check-typing
 check-typing:  ## Run a static analyzer over the code to find issues

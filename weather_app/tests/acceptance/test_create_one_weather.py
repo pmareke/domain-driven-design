@@ -20,7 +20,7 @@ class TestWeather:
 
         expect(response.status_code).to(be(status.HTTP_201_CREATED))
 
-        weather_id = created_weather["id"]
+        weather_id = created_weather["weather_id"]
         response = client.get(f"/api/v1/weather/{weather_id}")
 
         weather_json = response.json()

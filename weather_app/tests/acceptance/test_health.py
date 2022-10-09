@@ -12,4 +12,4 @@ class TestHeath:
         response = client.get("/api/v1/health")
 
         expect(response.status_code).to(be(status.HTTP_200_OK))
-        expect(response.json()["ok"]).to(be_true)
+        expect(response.json()["status"]).to(be_true)

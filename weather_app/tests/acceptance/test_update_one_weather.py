@@ -17,7 +17,7 @@ class TestWeather:
                 "city": city
             }
         )
-        weather_id = response.json()["id"]
+        weather_id = response.json()["weather_id"]
         update_response = client.put(
             f"/api/v1/weather/{weather_id}",
             json={

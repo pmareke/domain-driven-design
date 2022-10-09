@@ -4,6 +4,7 @@ from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
 from weather_app.weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
+from weather_app.weather.delivery.api.v1.weather.weather_response import WeatherResponse
 
 find_one_router = APIRouter()
 
@@ -13,7 +14,9 @@ async def _find_one_command_handler() -> CommandHandler:
     return FindOneWeatherCommandHandler(repository)
 
 
-@find_one_router.get("/api/v1/weather/{weather_id}")
+@find_one_router.get(
+    "/api/v1/weather/{weather_id}", response_model=WeatherResponse
+)
 def find_weather(
     weather_id: str,
     handler: CommandHandler = Depends(_find_one_command_handler)
