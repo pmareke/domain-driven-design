@@ -2,14 +2,14 @@ from expects import expect
 from doublex import Spy
 from doublex_expects import have_been_called_with
 
-from weather_app.tests.helper.test_data import TestData
+from weather_app.tests.helper.test_data import TestData, WeatherBuilder
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.use_cases.create_one_weather_command import CreateOneWeatherCommand, CreateOneWeatherCommandHandler
 
 
 class TestCreateOneWeatherCommandHandler:
     def test_create_one_weather(self) -> None:
-        weather = TestData.create_weather()
+        weather = WeatherBuilder().build()
         command = CreateOneWeatherCommand(
             weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )

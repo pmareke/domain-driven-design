@@ -1,7 +1,7 @@
 from expects import expect, be, raise_error
 from doublex import Stub, ANY_ARG
 
-from weather_app.tests.helper.test_data import TestData
+from weather_app.tests.helper.test_data import TestData, WeatherBuilder
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.weather import WeatherNotFoundException
 from weather_app.weather.use_cases.find_one_weather_command import FindOneWeatherCommand, FindOneWeatherCommandHandler, \
@@ -10,7 +10,7 @@ from weather_app.weather.use_cases.find_one_weather_command import FindOneWeathe
 
 class TestFindOneWeatherCommandHandler:
     def test_finds_one_weather(self) -> None:
-        weather = TestData.create_weather()
+        weather = WeatherBuilder().build()
         command = FindOneWeatherCommand(TestData.ANY_WEATHER_ID)
         with Stub(WeatherRepository) as repository:
             repository.find(ANY_ARG).returns(weather)
