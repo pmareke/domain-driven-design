@@ -3,7 +3,6 @@ from doublex import Stub
 
 from weather_app.tests.helper.test_data import TestData
 from weather_app.weather.domain.weather_repository import WeatherRepository
-from weather_app.weather.domain.weather import Weather
 from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, \
     FindAllWeathersCommandHandler, FindAllWeathersCommandResponse
 
@@ -11,9 +10,7 @@ from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeath
 class TestFindAllWeathersCommandHandler:
     def test_finds_all_the_weathers(self) -> None:
         command = FindAllWeathersCommand()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
         with Stub(WeatherRepository) as repository:
             repository.find_all().returns([weather])
         handler = FindAllWeathersCommandHandler(repository)

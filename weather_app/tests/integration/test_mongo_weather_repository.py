@@ -26,9 +26,7 @@ class TestPyMongoWeatherRepository:
         expect(weather.temperature).not_to(be(-10))
 
     def test_creates_a_weathers(self) -> None:
-        weather: Weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
         repository = PyMongoWeatherRepository()
 
         repository.save(weather)
@@ -38,9 +36,7 @@ class TestPyMongoWeatherRepository:
         expect(record.weather_id).to(equal(TestData.ANY_WEATHER_ID))
 
     def test_deletes_a_weathers(self) -> None:
-        weather: Weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
         repository = PyMongoWeatherRepository()
 
         repository.save(weather)
@@ -53,9 +49,7 @@ class TestPyMongoWeatherRepository:
         assert not record
 
     def test_updates_a_weather(self) -> None:
-        weather: Weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
         repository = PyMongoWeatherRepository()
 
         repository.save(weather)

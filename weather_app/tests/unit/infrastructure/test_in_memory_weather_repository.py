@@ -8,9 +8,7 @@ from weather_app.weather.infrastructure.in_memory_weather_repository import InMe
 class TestInMemoryWeatherRepository:
     def test_finds_all_weathers(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
 
         repository.save(weather)
         records = repository.find_all()
@@ -19,9 +17,7 @@ class TestInMemoryWeatherRepository:
 
     def test_finds_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
 
         repository.save(weather)
         record = repository.find(TestData.ANY_WEATHER_ID)
@@ -31,9 +27,7 @@ class TestInMemoryWeatherRepository:
 
     def test_saves_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
 
         repository.save(weather)
         record = repository.find(TestData.ANY_WEATHER_ID)
@@ -43,9 +37,7 @@ class TestInMemoryWeatherRepository:
 
     def test_deletes_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
 
         repository.save(weather)
         record = repository.find(TestData.ANY_WEATHER_ID)
@@ -60,9 +52,7 @@ class TestInMemoryWeatherRepository:
 
     def test_updates_one_weather(self) -> None:
         repository = InMemoryWeatherRepository()
-        weather = Weather(
-            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
-        )
+        weather = TestData.create_weather()
 
         repository.save(weather)
         updated_weather: Weather = Weather(
