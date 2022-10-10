@@ -4,6 +4,7 @@ from weather_app.weather.domain.weather import Weather
 
 
 class WeatherRepository(ABC):
+
     @abstractmethod
     def find_all(self) -> List[Weather]:
         pass

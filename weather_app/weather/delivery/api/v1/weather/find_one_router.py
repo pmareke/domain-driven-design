@@ -15,9 +15,8 @@ async def _find_one_command_handler() -> CommandHandler:
     return FindOneWeatherCommandHandler(repository)
 
 
-@find_one_router.get(
-    "/api/v1/weather/{weather_id}", response_model=WeatherResponse
-)
+@find_one_router.get("/api/v1/weather/{weather_id}",
+                     response_model=WeatherResponse)
 def find_weather(
     weather_id: str,
     handler: CommandHandler = Depends(_find_one_command_handler)
@@ -25,12 +24,10 @@ def find_weather(
     try:
         command = FindOneWeatherCommand(weather_id)
         weather_response: FindOneWeatherCommandResponse = handler.process(
-            command
-        )  # type: ignore
+            command)  # type: ignore
     except WeatherNotFoundException as exception:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Weather {weather_id} not found"
-        ) from exception
+            detail=f"Weather {weather_id} not found") from exception
 
     return weather_response.weather

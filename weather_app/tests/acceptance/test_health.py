@@ -8,6 +8,7 @@ client = TestClient(app)
 
 
 class TestHeath:
+
     def test_health(self) -> None:
         response = client.get("/api/v1/health")
 

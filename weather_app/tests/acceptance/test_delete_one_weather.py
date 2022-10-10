@@ -9,15 +9,14 @@ client = TestClient(app)
 
 
 class TestWeather:
+
     def test_deletes_a_weather(self) -> None:
-        response = client.post(
-            "/api/v1/weather",
-            json={
-                "weather_id": TestData.ANY_WEATHER_ID,
-                "temperature": TestData.ANY_TEMPERATURE,
-                "city": TestData.ANY_CITY
-            }
-        )
+        response = client.post("/api/v1/weather",
+                               json={
+                                   "weather_id": TestData.ANY_WEATHER_ID,
+                                   "temperature": TestData.ANY_TEMPERATURE,
+                                   "city": TestData.ANY_CITY
+                               })
 
         expect(response.status_code).to(be(status.HTTP_201_CREATED))
 

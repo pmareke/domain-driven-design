@@ -10,9 +10,12 @@ from weather_app.weather.use_cases.update_one_weather_command import UpdateOneWe
 
 
 class TestUpdateOneWeatherCommandHandler:
+
     def test_update_one_weather(self) -> None:
         weather = WeatherBuilder().build()
-        command = UpdateOneWeatherCommand(weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY)
+        command = UpdateOneWeatherCommand(weather_id=TestData.ANY_WEATHER_ID,
+                                          temperature=TestData.ANY_TEMPERATURE,
+                                          city=TestData.ANY_CITY)
         with Mock(WeatherRepository) as repository:
             repository.update(weather).returns(weather)
         handler = UpdateOneWeatherCommandHandler(repository)
@@ -22,11 +25,12 @@ class TestUpdateOneWeatherCommandHandler:
         expect(repository).to(have_been_satisfied)
 
     def test_raises_an_error_when_the_weather_does_not_exist(self) -> None:
-        command = UpdateOneWeatherCommand(TestData.ANY_WEATHER_ID, TestData.ANY_TEMPERATURE, TestData.ANY_CITY)
+        command = UpdateOneWeatherCommand(TestData.ANY_WEATHER_ID,
+                                          TestData.ANY_TEMPERATURE,
+                                          TestData.ANY_CITY)
         with Stub(WeatherRepository) as repository:
             repository.find(ANY_ARG).returns(None)
         handler = UpdateOneWeatherCommandHandler(repository)
 
         expect(lambda: handler.process(command)).to(
-            raise_error(WeatherNotFoundException)
-        )
+            raise_error(WeatherNotFoundException))

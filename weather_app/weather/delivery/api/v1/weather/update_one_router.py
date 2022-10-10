@@ -14,18 +14,17 @@ async def _update_one_command_handler() -> CommandHandler:
     return UpdateOneWeatherCommandHandler(repository)
 
 
-@update_one_router.put(
-    "/api/v1/weather/{weather_id}", status_code=status.HTTP_204_NO_CONTENT
-)
+@update_one_router.put("/api/v1/weather/{weather_id}",
+                       status_code=status.HTTP_204_NO_CONTENT)
 def update_weather(
     weather_id: str,
     weather_request: WeatherUpdateRequest,
     handler: CommandHandler = Depends(_update_one_command_handler)
 ) -> None:
     try:
-        command = UpdateOneWeatherCommand(
-            weather_id, weather_request.temperature, weather_request.city
-        )
+        command = UpdateOneWeatherCommand(weather_id,
+                                          weather_request.temperature,
+                                          weather_request.city)
         handler.process(command)
     except WeatherInvalidException as exception:
         raise HTTPException(
@@ -36,5 +35,4 @@ def update_weather(
     except WeatherNotFoundException as exception:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Weather {weather_id} not found"
-        ) from exception
+            detail=f"Weather {weather_id} not found") from exception

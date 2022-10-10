@@ -5,6 +5,7 @@ from weather_app.weather.domain.command_response import CommandResponse
 
 
 class CommandHandler(ABC):
+
     @abstractmethod
     def process(self, command: Command) -> CommandResponse:
         pass

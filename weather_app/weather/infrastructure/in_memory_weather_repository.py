@@ -4,6 +4,7 @@ from weather_app.weather.domain.weather import Weather
 
 
 class InMemoryWeatherRepository(WeatherRepository):
+
     def __init__(self) -> None:
         self.weathers: List[Weather] = []
 
@@ -17,11 +18,9 @@ class InMemoryWeatherRepository(WeatherRepository):
         return None
 
     def save(self, weather: Weather) -> None:
-        weather = Weather(
-            weather_id=weather.weather_id,
-            temperature=weather.temperature,
-            city=weather.city
-        )
+        weather = Weather(weather_id=weather.weather_id,
+                          temperature=weather.temperature,
+                          city=weather.city)
         self.weathers.append(weather)
 
     def delete(self, weather_id: str) -> None:

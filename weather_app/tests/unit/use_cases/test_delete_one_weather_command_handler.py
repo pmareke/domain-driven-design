@@ -8,6 +8,7 @@ from weather_app.weather.use_cases.delete_one_weather_command import DeleteOneWe
 
 
 class TestDeleteOneWeatherCommandHandler:
+
     def test_delete_one_weather(self) -> None:
         command = DeleteOneWeatherCommand(TestData.ANY_WEATHER_ID)
         repository = Spy(WeatherRepository)
@@ -15,4 +16,5 @@ class TestDeleteOneWeatherCommandHandler:
 
         handler.process(command)
 
-        expect(repository.delete).to(have_been_called_with(TestData.ANY_WEATHER_ID))
+        expect(repository.delete).to(
+            have_been_called_with(TestData.ANY_WEATHER_ID))

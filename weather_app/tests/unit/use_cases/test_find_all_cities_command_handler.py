@@ -8,6 +8,7 @@ from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeath
 
 
 class TestFindAllWeathersCommandHandler:
+
     def test_finds_all_the_weathers(self) -> None:
         command = FindAllWeathersCommand()
         repository = Spy(WeatherRepository)

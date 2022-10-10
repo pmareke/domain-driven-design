@@ -8,6 +8,7 @@ client = TestClient(app)
 
 
 class TestWeather:
+
     def test_lists_the_weathers(self) -> None:
         response = client.get("/api/v1/weather")
 

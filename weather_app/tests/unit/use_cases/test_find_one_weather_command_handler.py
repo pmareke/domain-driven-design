@@ -9,10 +9,13 @@ from weather_app.weather.use_cases.find_one_weather_command import FindOneWeathe
 
 
 class TestFindOneWeatherCommandHandler:
+
     def test_finds_one_weather(self) -> None:
         command = FindOneWeatherCommand(TestData.ANY_WEATHER_ID)
         with Mock(WeatherRepository) as repository:
-            repository.find(TestData.ANY_WEATHER_ID).returns(WeatherBuilder().build())
+            repository.find(TestData.ANY_WEATHER_ID).returns(
+                WeatherBuilder().with_weather_id(
+                    TestData.ANY_WEATHER_ID).build())
         handler = FindOneWeatherCommandHandler(repository)
 
         handler.process(command)
@@ -26,5 +29,4 @@ class TestFindOneWeatherCommandHandler:
         handler = FindOneWeatherCommandHandler(repository)
 
         expect(lambda: handler.process(command)).to(
-            raise_error(WeatherNotFoundException)
-        )
+            raise_error(WeatherNotFoundException))

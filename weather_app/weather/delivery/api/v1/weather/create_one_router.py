@@ -20,16 +20,13 @@ def create_weather(
     handler: CommandHandler = Depends(_create_one_command_handler)
 ) -> Weather:
     try:
-        command = CreateOneWeatherCommand(
-            weather_request.weather_id, weather_request.temperature,
-            weather_request.city
-        )
+        command = CreateOneWeatherCommand(weather_request.weather_id,
+                                          weather_request.temperature,
+                                          weather_request.city)
         handler.process(command)
         response.status_code = status.HTTP_201_CREATED
-        return Weather(
-            weather_request.weather_id, weather_request.temperature,
-            weather_request.city
-        )
+        return Weather(weather_request.weather_id, weather_request.temperature,
+                       weather_request.city)
     except WeatherInvalidException as exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

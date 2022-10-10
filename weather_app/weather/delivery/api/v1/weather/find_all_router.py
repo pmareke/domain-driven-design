@@ -13,9 +13,7 @@ async def _find_all_command_handler() -> CommandHandler:
 
 
 @find_all_router.get("/api/v1/weather", response_model=WeatherListResponse)
-def find_all_weathers(
-    handler: CommandHandler = Depends(_find_all_command_handler)
-) -> WeatherListResponse:
+def find_all_weathers(handler: CommandHandler = Depends(_find_all_command_handler)) -> WeatherListResponse:
     command = FindAllWeathersCommand()
     weathers_response = handler.process(command)
     return WeatherListResponse(weathers_response.weathers)

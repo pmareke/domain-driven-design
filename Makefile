@@ -21,7 +21,7 @@ install: ## Install all dependencies
 update: ## Update dependencies
 	poetry update
 
-.PHONY: up
+.PHONY: upg
 up:    ## Run the app
 	docker-compose up --build weather
 
@@ -48,7 +48,7 @@ check-style:
 
 .PHONY: reformat
 reformat:  ## Format python code
-	poetry run yapf --parallel --recursive --in-place weather_app/**/*.py
+	poetry run yapf --parallel --recursive -ir weather_app/
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests

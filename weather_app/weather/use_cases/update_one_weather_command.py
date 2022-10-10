@@ -7,6 +7,7 @@ from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
 
 
 class UpdateOneWeatherCommand(Command):
+
     def __init__(self, weather_id: str, temperature: int, city: str) -> None:
         self.weather_id = weather_id
         self.temperature = temperature
@@ -15,22 +16,22 @@ class UpdateOneWeatherCommand(Command):
 
 
 class UpdateOneWeatherCommandResponse(CommandResponse):
+
     def __init__(self, weather: Weather) -> None:
         self.weather = weather
 
 
 class UpdateOneWeatherCommandHandler(CommandHandler):
+
     def __init__(self, repository: WeatherRepository):
         self.repository = repository
 
     def process(
-        self, command: UpdateOneWeatherCommand
+            self, command: UpdateOneWeatherCommand
     ) -> UpdateOneWeatherCommandResponse:
-        weather = Weather(
-            weather_id=command.weather_id,
-            temperature=command.temperature,
-            city=command.city
-        )
+        weather = Weather(weather_id=command.weather_id,
+                          temperature=command.temperature,
+                          city=command.city)
         response = self.repository.update(weather)
         if not response:
             raise WeatherNotFoundException()

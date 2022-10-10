@@ -8,6 +8,7 @@ client = TestClient(app)
 
 
 class TestWeather:
+
     def test_gets_the_weather_for_a_given_city(self) -> None:
         response = client.get("/api/v1/weather")
         weathers = response.json()["weathers"]
@@ -26,5 +27,4 @@ class TestWeather:
         weather_json = response.json()
         expect(response.status_code).to(be(status.HTTP_404_NOT_FOUND))
         expect(weather_json["detail"]).to(
-            equal(f"Weather {any_non_existing_weather_id} not found")
-        )
+            equal(f"Weather {any_non_existing_weather_id} not found"))

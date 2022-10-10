@@ -10,6 +10,7 @@ class TestData:
 
 
 class WeatherBuilder:
+
     def __init__(self) -> None:
         self._weather_id = TestData.ANY_WEATHER_ID
         self._temperature = TestData.ANY_TEMPERATURE
@@ -28,4 +29,6 @@ class WeatherBuilder:
         return self
 
     def build(self) -> Weather:
-        return Weather(weather_id=self._weather_id, temperature=self._temperature, city=self._city)
+        return Weather(weather_id=self._weather_id,
+                       temperature=self._temperature,
+                       city=self._city)
