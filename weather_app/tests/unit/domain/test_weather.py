@@ -7,7 +7,8 @@ from weather_app.weather.domain.weather import WeatherInvalidException
 class TestWeather:
 
     def test_creates_a_weather(self) -> None:
-        weather = WeatherBuilder().with_weather_id(TestData.ANY_WEATHER_ID).build()
+        weather = WeatherBuilder().with_weather_id(
+            TestData.ANY_WEATHER_ID).build()
 
         expect(weather.city).to(equal(TestData.ANY_CITY))
 
