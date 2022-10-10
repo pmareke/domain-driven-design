@@ -1,4 +1,4 @@
-from expects import expect, be, be_empty, equal
+from expects import expect, be_empty, equal
 
 from weather_app.tests.helper.test_data import TestData, WeatherBuilder
 from weather_app.weather.infrastructure.pymongo_weather_repository import PyMongoWeatherRepository
@@ -22,8 +22,7 @@ class TestPyMongoWeatherRepository:
         weather = repository.find(weather_id=city_weather.weather_id)
         assert weather
 
-        expect(weather.city).to(equal(city_weather.city))
-        expect(weather.temperature).not_to(be(-10))
+        expect(weather.weather_id).to(equal(city_weather.weather_id))
 
     def test_creates_a_weathers(self) -> None:
         weather = WeatherBuilder().build()
