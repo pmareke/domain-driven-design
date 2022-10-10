@@ -1,7 +1,6 @@
 from typing import List, Dict, Optional
 import pymongo
 from pymongo import MongoClient
-from pymongo.results import UpdateResult
 from bson.objectid import ObjectId
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.weather import Weather
@@ -35,7 +34,7 @@ class PyMongoWeatherRepository(WeatherRepository):
         self.database.weather.delete_one({"_id": ObjectId(weather_id)})
 
     def update(self, weather: Weather) -> Optional[Weather]:
-        record: UpdateResult = self.database.weather.update_one(
+        record = self.database.weather.update_one(
             {"_id": ObjectId(weather.weather_id)}, {
                 '$set': {
                     'city': weather.city,
