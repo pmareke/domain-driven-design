@@ -1,20 +1,18 @@
-from expects import expect, be
-from doublex import Stub
+from expects import expect
+from doublex import Spy
+from doublex_expects import have_been_called
 
-from weather_app.tests.helper.test_data import TestData, WeatherBuilder
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, \
-    FindAllWeathersCommandHandler, FindAllWeathersCommandResponse
+    FindAllWeathersCommandHandler
 
 
 class TestFindAllWeathersCommandHandler:
     def test_finds_all_the_weathers(self) -> None:
         command = FindAllWeathersCommand()
-        weather = WeatherBuilder().build()
-        with Stub(WeatherRepository) as repository:
-            repository.find_all().returns([weather])
+        repository = Spy(WeatherRepository)
         handler = FindAllWeathersCommandHandler(repository)
 
-        response: FindAllWeathersCommandResponse = handler.process(command)
+        handler.process(command)
 
-        expect(response.weathers[0].weather_id).to(be(TestData.ANY_WEATHER_ID))
+        expect(repository.find_all).to(have_been_called)
