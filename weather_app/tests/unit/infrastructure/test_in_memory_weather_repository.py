@@ -1,89 +1,75 @@
-from bson.objectid import ObjectId
 from expects import expect, be_none, equal
+
+from weather_app.tests.helper.test_data import TestData
 from weather_app.weather.domain.weather import Weather
 from weather_app.weather.infrastructure.in_memory_weather_repository import InMemoryWeatherRepository
 
 
 class TestInMemoryWeatherRepository:
     def test_finds_all_weathers(self) -> None:
-        weather_id = str(ObjectId())
-        temperature = 10
-        city = "Paris"
         repository = InMemoryWeatherRepository()
         weather = Weather(
-            weather_id=weather_id, temperature=temperature, city=city
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
 
         repository.save(weather)
         records = repository.find_all()
 
-        expect(records[0].weather_id).to(equal(weather_id))
+        expect(records[0].weather_id).to(equal(TestData.ANY_WEATHER_ID))
 
     def test_finds_one_weather(self) -> None:
-        weather_id = str(ObjectId())
-        temperature = 10
-        city = "Paris"
         repository = InMemoryWeatherRepository()
         weather = Weather(
-            weather_id=weather_id, temperature=temperature, city=city
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
 
         repository.save(weather)
-        record = repository.find(weather_id)
+        record = repository.find(TestData.ANY_WEATHER_ID)
         assert record
 
-        expect(record.weather_id).to(equal(weather_id))
+        expect(record.weather_id).to(equal(TestData.ANY_WEATHER_ID))
 
     def test_saves_one_weather(self) -> None:
-        weather_id = str(ObjectId())
-        temperature = 10
-        city = "Paris"
         repository = InMemoryWeatherRepository()
         weather = Weather(
-            weather_id=weather_id, temperature=temperature, city=city
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
 
         repository.save(weather)
-        record = repository.find(weather_id)
+        record = repository.find(TestData.ANY_WEATHER_ID)
         assert record
 
-        expect(record.weather_id).to(equal(weather_id))
+        expect(record.weather_id).to(equal(TestData.ANY_WEATHER_ID))
 
     def test_deletes_one_weather(self) -> None:
-        weather_id = str(ObjectId())
-        temperature = 10
-        city = "Paris"
         repository = InMemoryWeatherRepository()
         weather = Weather(
-            weather_id=weather_id, temperature=temperature, city=city
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
 
         repository.save(weather)
-        record = repository.find(weather_id)
+        record = repository.find(TestData.ANY_WEATHER_ID)
         assert record
 
-        expect(record.weather_id).to(equal(weather_id))
+        expect(record.weather_id).to(equal(TestData.ANY_WEATHER_ID))
 
-        repository.delete(weather_id)
+        repository.delete(TestData.ANY_WEATHER_ID)
 
-        record = repository.find(weather_id)
+        record = repository.find(TestData.ANY_WEATHER_ID)
         expect(record).to(be_none)
 
     def test_updates_one_weather(self) -> None:
-        weather_id = str(ObjectId())
-        temperature = 10
-        city = "Paris"
         repository = InMemoryWeatherRepository()
         weather = Weather(
-            weather_id=weather_id, temperature=temperature, city=city
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
 
         repository.save(weather)
         updated_weather: Weather = Weather(
-            weather_id=weather_id, temperature=100, city="London"
+            weather_id=TestData.ANY_WEATHER_ID, temperature=100, city="London"
         )
         record = repository.update(updated_weather)
         assert record
 
-        expect(record.city).not_to(equal(weather.city))
-        expect(record.temperature).not_to(equal(weather.temperature))
+        expect(record.city).not_to(equal(TestData.ANY_CITY))
+        expect(record.temperature).not_to(equal(TestData.ANY_CITY))

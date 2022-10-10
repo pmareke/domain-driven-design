@@ -1,8 +1,8 @@
-from bson.objectid import ObjectId
 from expects import expect, be, equal
 from fastapi.testclient import TestClient
 from fastapi import status
 
+from weather_app.tests.helper.test_data import TestData
 from weather_app.main import app
 
 client = TestClient(app)
@@ -10,19 +10,16 @@ client = TestClient(app)
 
 class TestWeather:
     def test_updates_a_weather(self) -> None:
-        weather_id = str(ObjectId())
-        city = "London"
-        temperature = 10
         client.post(
             "/api/v1/weather",
             json={
-                "weather_id": weather_id,
-                "temperature": temperature,
-                "city": city
+                "weather_id": TestData.ANY_WEATHER_ID,
+                "temperature": TestData.ANY_TEMPERATURE,
+                "city": TestData.ANY_CITY
             }
         )
         update_response = client.put(
-            f"/api/v1/weather/{weather_id}",
+            f"/api/v1/weather/{TestData.ANY_WEATHER_ID}",
             json={
                 "temperature": 100,
                 "city": "Roma"
@@ -31,18 +28,18 @@ class TestWeather:
 
         expect(update_response.status_code).to(be(status.HTTP_204_NO_CONTENT))
 
-        get_response = client.get(f"/api/v1/weather/{weather_id}")
+        get_response = client.get(f"/api/v1/weather/{TestData.ANY_WEATHER_ID}")
         get_json = get_response.json()
-        expect(get_json["city"]).not_to(equal(city))
-        expect(get_json["temperature"]).not_to(equal(temperature))
+        expect(get_json["city"]).not_to(equal(TestData.ANY_CITY))
+        expect(get_json["temperature"]).not_to(equal(TestData.ANY_TEMPERATURE))
 
     def test_returns_not_found(self) -> None:
         any_weather_id = "507f1f77bcf86cd799439011"
         response = client.put(
             f"/api/v1/weather/{any_weather_id}",
             json={
-                "temperature": 100,
-                "city": "Madrid"
+                "temperature": TestData.ANY_TEMPERATURE,
+                "city": TestData.ANY_CITY
             }
         )
 
@@ -53,28 +50,27 @@ class TestWeather:
         )
 
     def test_returns_bad_request(self) -> None:
-        any_weather_id = "507f1f77bcf86cd799439011"
         invalid_city = ""
-        payload = {"temperature": 100, "city": invalid_city}
-        response = client.put(f"/api/v1/weather/{any_weather_id}", json=payload)
+        payload = {"temperature": TestData.ANY_TEMPERATURE, "city": invalid_city}
+        response = client.put(f"/api/v1/weather/{TestData.ANY_WEATHER_ID}", json=payload)
 
         weather_json = response.json()
         expect(response.status_code).to(be(status.HTTP_400_BAD_REQUEST))
         expect(weather_json["detail"]).to(
             equal(
-                f"The request id: {any_weather_id}, temperature: {payload['temperature']}, city: {invalid_city} is not valid"
+                f"The request id: {TestData.ANY_WEATHER_ID}, temperature: {TestData.ANY_TEMPERATURE}, city: {invalid_city} is not valid"
             )
         )
 
     def test_returns_bad_request_when_the_id_is_not_valid(self) -> None:
         any_weather_id = "any-invalid-id"
-        payload = {"temperature": 100, "city": "London"}
+        payload = {"temperature": TestData.ANY_TEMPERATURE, "city": TestData.ANY_CITY}
         response = client.put(f"/api/v1/weather/{any_weather_id}", json=payload)
 
         weather_json = response.json()
         expect(response.status_code).to(be(status.HTTP_400_BAD_REQUEST))
         expect(weather_json["detail"]).to(
             equal(
-                f"The request id: {any_weather_id}, temperature: {payload['temperature']}, city: {payload['city']} is not valid"
+                f"The request id: {any_weather_id}, temperature: {TestData.ANY_TEMPERATURE}, city: {TestData.ANY_CITY} is not valid"
             )
         )

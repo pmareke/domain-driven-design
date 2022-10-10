@@ -1,6 +1,7 @@
-from bson.objectid import ObjectId
 from expects import expect, be
 from doublex import Stub
+
+from weather_app.tests.helper.test_data import TestData
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.weather import Weather
 from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, \
@@ -11,7 +12,7 @@ class TestFindAllWeathersCommandHandler:
     def test_finds_all_the_weathers(self) -> None:
         command = FindAllWeathersCommand()
         weather = Weather(
-            weather_id=str(ObjectId()), temperature=20, city="Madrid"
+            weather_id=TestData.ANY_WEATHER_ID, temperature=TestData.ANY_TEMPERATURE, city=TestData.ANY_CITY
         )
         with Stub(WeatherRepository) as repository:
             repository.find_all().returns([weather])
@@ -19,4 +20,4 @@ class TestFindAllWeathersCommandHandler:
 
         response: FindAllWeathersCommandResponse = handler.process(command)
 
-        expect(response.weathers[0].city).to(be(weather.city))
+        expect(response.weathers[0].weather_id).to(be(TestData.ANY_WEATHER_ID))
