@@ -24,6 +24,6 @@ jobs:
     - name: Unit Tests
       run: docker-compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
     - name: Integration Tests
-      run: docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/integration -ra
+      run: docker-compose run --rm weather poetry run pytest weather_app/tests/integration -ra
     - name: Acceptance Tests
-      run: docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/acceptance -ra
+      run: docker-compose run --rm weather poetry run pytest weather_app/tests/acceptance -ra
