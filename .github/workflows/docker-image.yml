@@ -1,0 +1,21 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  docker:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Unit Tests
+      run: docker-compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
+    - name: Integration Tests
+      run: docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/integration -ra
+    - name: Acceptance Tests
+      run: docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/acceptance -ra
