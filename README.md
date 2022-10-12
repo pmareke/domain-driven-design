@@ -1,4 +1,4 @@
-# Domain Driven Design example using Python
+# Domain Driven Design example using Python ![status](https://github.com/pmareke/domain-driven-design/actions/workflows/docker-image.yml/badge.svg)
 
 ## Components
 The app is build upon **docker** and **docker-compose**. The main webapp is a Python docker application
