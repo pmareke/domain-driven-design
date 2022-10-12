@@ -13,6 +13,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
+    - name: Mypy
+      run: docker-compose run --rm --no-deps weather poetry run poetry run mypy .
+    - name: Yapf
+      run: docker-compose run --rm --no-deps weather poetry run poetry run yapf --diff --recursive weather_app/**/*.py
+    - name: Flake8
+      run: docker-compose run --rm --no-deps weather poetry run poetry run  poetry run flake8 weather_app/                                          
+    - name: Pylint
+      run: docker-compose run --rm --no-deps weather poetry run poetry run poetry run pylint weather_app/**    
     - name: Unit Tests
       run: docker-compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
     - name: Integration Tests
