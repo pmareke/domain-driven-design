@@ -4,7 +4,7 @@ from weather_app.tests.helper.test_data import TestData, WeatherBuilder
 from weather_app.weather.domain.weather import WeatherInvalidException
 
 
-class TestWeather:
+class TestWeatherFactory:
 
     def test_creates_a_weather(self) -> None:
         weather = WeatherBuilder().with_weather_id(

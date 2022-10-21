@@ -3,7 +3,7 @@ from weather_app.weather.domain.command import Command
 from weather_app.weather.domain.command_handler import CommandHandler
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.command_response import CommandResponse
-from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
+from weather_app.weather.domain.weather import Weather, WeatherFactory, WeatherNotFoundException
 
 
 class UpdateOneWeatherCommand(Command):
@@ -29,9 +29,9 @@ class UpdateOneWeatherCommandHandler(CommandHandler):
     def process(
             self, command: UpdateOneWeatherCommand
     ) -> UpdateOneWeatherCommandResponse:
-        weather = Weather(weather_id=command.weather_id,
-                          temperature=command.temperature,
-                          city=command.city)
+        weather = WeatherFactory.make(weather_id=command.weather_id,
+                                      temperature=command.temperature,
+                                      city=command.city)
         response = self.repository.update(weather)
         if not response:
             raise WeatherNotFoundException()

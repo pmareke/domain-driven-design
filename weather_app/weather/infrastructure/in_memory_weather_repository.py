@@ -1,4 +1,5 @@
-from typing import List, Optional
+from typing import Dict, List, Optional
+from collections import defaultdict
 from weather_app.weather.domain.weather_repository import WeatherRepository
 from weather_app.weather.domain.weather import Weather
 
@@ -6,33 +7,20 @@ from weather_app.weather.domain.weather import Weather
 class InMemoryWeatherRepository(WeatherRepository):
 
     def __init__(self) -> None:
-        self.weathers: List[Weather] = []
+        self.weathers: Dict[str, Weather] = defaultdict()
 
     def find_all(self) -> List[Weather]:
-        return self.weathers
+        return list(self.weathers.values())
 
     def find(self, weather_id: str) -> Optional[Weather]:
-        for weather in self.weathers:
-            if weather.weather_id == weather_id:
-                return weather
-        return None
+        return self.weathers.get(weather_id)
 
     def save(self, weather: Weather) -> None:
-        weather = Weather(weather_id=weather.weather_id,
-                          temperature=weather.temperature,
-                          city=weather.city)
-        self.weathers.append(weather)
+        self.weathers[weather.weather_id] = weather
 
     def delete(self, weather_id: str) -> None:
-        for weather in self.weathers:
-            if weather.weather_id == weather_id:
-                self.weathers.remove(weather)
-                break
+        del self.weathers[weather_id]
 
     def update(self, weather: Weather) -> Optional[Weather]:
-        for in_memory_weather in self.weathers:
-            if in_memory_weather.weather_id == weather.weather_id:
-                in_memory_weather.city = weather.city
-                in_memory_weather.temperature = weather.temperature
-                return in_memory_weather
-        return None
+        self.weathers[weather.weather_id] = weather
+        return weather

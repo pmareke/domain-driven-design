@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 
-from weather_app.weather.domain.weather import Weather
+from weather_app.weather.domain.weather import Weather, WeatherFactory
 
 
 class TestData:
@@ -29,6 +29,6 @@ class WeatherBuilder:
         return self
 
     def build(self) -> Weather:
-        return Weather(weather_id=self._weather_id,
-                       temperature=self._temperature,
-                       city=self._city)
+        return WeatherFactory.make(weather_id=self._weather_id,
+                                   temperature=self._temperature,
+                                   city=self._city)

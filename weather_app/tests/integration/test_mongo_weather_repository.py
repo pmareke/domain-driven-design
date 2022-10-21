@@ -6,6 +6,7 @@ from weather_app.weather.infrastructure.pymongo_weather_repository import PyMong
 
 
 class TestPyMongoWeatherRepository:
+
     def test_finds_all_the_weathers(self) -> None:
         repository = PyMongoWeatherRepository()
 
@@ -59,9 +60,8 @@ class TestPyMongoWeatherRepository:
         new_temperature = 10
         new_city = "Paris"
         record = repository.update(
-            WeatherBuilder().with_weather_id(weather_id).
-            with_temperature(new_temperature).with_city(new_city).build()
-        )
+            WeatherBuilder().with_weather_id(weather_id).with_temperature(
+                new_temperature).with_city(new_city).build())
         assert record
 
         expect(record.city).to(equal(new_city))

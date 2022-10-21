@@ -13,18 +13,23 @@ class Weather:
         self.temperature = temperature
         self.city = city
         self.weather_id = weather_id
-        self._validate()
 
-    def _validate(self) -> None:
+
+class WeatherFactory:
+
+    @staticmethod
+    def make(weather_id: str, temperature: int, city: str) -> Weather:
         try:
-            ObjectId(self.weather_id)
+            ObjectId(weather_id)
         except InvalidId as exception:
             raise WeatherInvalidException() from exception
 
-        if self.city == "":
+        if city == "":
             raise WeatherInvalidException()
-        if self.temperature > 100 or self.temperature < -100:
+        if temperature > 100 or temperature < -100:
             raise WeatherInvalidException()
+
+        return Weather(weather_id, temperature, city)
 
 
 class WeatherNotFoundException(Exception):
