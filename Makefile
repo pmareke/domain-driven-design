@@ -49,6 +49,7 @@ check-style:
 .PHONY: reformat
 reformat:  ## Format python code
 	poetry run yapf --parallel --recursive -ir weather_app/
+	poetry run pyupgrade --py310-plus **/*.py
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests
