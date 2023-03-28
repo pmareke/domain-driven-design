@@ -10,7 +10,7 @@ local-setup: ## Set up the local environment (e.g. install git hooks)
 	scripts/local-setup.sh
 
 .PHONY: build
-build: ## Build the a`
+build: ## Build the app
 	docker build .
 
 .PHONY: install
