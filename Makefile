@@ -10,7 +10,7 @@ local-setup: ## Set up the local environment (e.g. install git hooks)
 	scripts/local-setup.sh
 
 .PHONY: build
-build: ## Set up the local environment (e.g. install git hooks)
+build: ## Build the a`
 	docker build .
 
 .PHONY: install
@@ -21,7 +21,7 @@ install: ## Install all dependencies
 update: ## Update dependencies
 	poetry update
 
-.PHONY: upg
+.PHONY: up
 up:    ## Run the app
 	docker-compose up --build weather
 
