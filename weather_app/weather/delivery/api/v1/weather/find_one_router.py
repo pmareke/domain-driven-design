@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi import status
 from weather_app.weather.domain.command_handler import CommandHandler
-from weather_app.weather.domain.weather import Weather, WeatherNotFoundException
+from weather_app.weather.domain.weather import WeatherNotFoundException
 from weather_app.weather.use_cases.find_one_weather_command import (
     FindOneWeatherCommand,
     FindOneWeatherCommandHandler,
