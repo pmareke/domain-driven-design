@@ -23,7 +23,7 @@ class DeleteOneWeatherCommandHandler(CommandHandler):
         self.repository = repository
 
     def process(
-            self, command: DeleteOneWeatherCommand
+        self, command: DeleteOneWeatherCommand
     ) -> DeleteOneWeatherCommandResponse:
         self.repository.delete(command.weather_id)
         return DeleteOneWeatherCommandResponse()

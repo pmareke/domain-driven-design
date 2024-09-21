@@ -4,7 +4,10 @@ from doublex_expects import have_been_called_with
 
 from weather_app.tests.helper.test_data import TestData
 from weather_app.weather.domain.weather_repository import WeatherRepository
-from weather_app.weather.use_cases.delete_one_weather_command import DeleteOneWeatherCommand, DeleteOneWeatherCommandHandler
+from weather_app.weather.use_cases.delete_one_weather_command import (
+    DeleteOneWeatherCommand,
+    DeleteOneWeatherCommandHandler,
+)
 
 
 class TestDeleteOneWeatherCommandHandler:
@@ -16,5 +19,4 @@ class TestDeleteOneWeatherCommandHandler:
 
         handler.process(command)
 
-        expect(repository.delete).to(
-            have_been_called_with(TestData.ANY_WEATHER_ID))
+        expect(repository.delete).to(have_been_called_with(TestData.ANY_WEATHER_ID))

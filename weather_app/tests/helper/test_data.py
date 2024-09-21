@@ -29,6 +29,6 @@ class WeatherBuilder:
         return self
 
     def build(self) -> Weather:
-        return WeatherFactory.make(weather_id=self._weather_id,
-                                   temperature=self._temperature,
-                                   city=self._city)
+        return WeatherFactory.make(
+            weather_id=self._weather_id, temperature=self._temperature, city=self._city
+        )

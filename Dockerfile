@@ -10,5 +10,7 @@ RUN poetry install
 
 COPY . /code
 
-CMD ["poetry", "run", "uvicorn", "weather_app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+EXPOSE 8080
+
+CMD ["poetry", "run", "fastapi", "run", "weather_app/main.py", "--port", "8080"]
 

@@ -25,7 +25,7 @@ class FindAllWeathersCommandHandler(CommandHandler):
         self.repository = repository
 
     def process(
-            self, _command: FindAllWeathersCommand
+        self, _command: FindAllWeathersCommand
     ) -> "FindAllWeathersCommandResponse":
         weathers: List[Weather] = self.repository.find_all()
         return FindAllWeathersCommandResponse(weathers)

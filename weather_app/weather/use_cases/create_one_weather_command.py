@@ -26,9 +26,10 @@ class CreateOneWeatherCommandHandler(CommandHandler):
         self.repository = repository
 
     def process(
-            self, command: CreateOneWeatherCommand
+        self, command: CreateOneWeatherCommand
     ) -> CreateOneWeatherCommandResponse:
-        weather = WeatherFactory.make(command.weather_id, command.temperature,
-                                      command.city)
+        weather = WeatherFactory.make(
+            command.weather_id, command.temperature, command.city
+        )
         self.repository.save(weather)
         return CreateOneWeatherCommandResponse()

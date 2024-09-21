@@ -11,7 +11,7 @@ local-setup: ## Set up the local environment (e.g. install git hooks)
 
 .PHONY: build
 build: ## Build the app
-	docker build .
+	docker build . -t weather
 
 .PHONY: install
 install: ## Install all dependencies
@@ -23,15 +23,15 @@ update: ## Update dependencies
 
 .PHONY: up
 up:    ## Run the app
-	docker-compose up --build weather
+	docker compose up --build weather
 
 .PHONY: down
 down: ## Stop and remove all the Docker services, volumes and networks
-	docker-compose down -v --remove-orphans
+	docker compose down -v --remove-orphans
 
 .PHONY: dev
 dev:    ## Run the server in dev mode
-	poetry run uvicorn weather_app.main:app --reload --host 0.0.0.0 --port 8080
+	poetry run fastapi run --port 8080
 
 .PHONY: check-typing
 check-typing:  ## Run a static analyzer over the code to find issues
@@ -39,32 +39,32 @@ check-typing:  ## Run a static analyzer over the code to find issues
 
 .PHONY: check-format
 check-format:
-	poetry run yapf --diff --recursive weather_app/**/*.py
+	poetry run black --check weather_app
 
 .PHONY: check-style
 check-style:
 	poetry run flake8 weather_app/
 	poetry run pylint weather_app/**
 
-.PHONY: reformat
-reformat:  ## Format python code
-	poetry run yapf --parallel --recursive -ir weather_app/
+.PHONY: format
+format:  ## Format python code
+	poetry run black weather_app
 	poetry run pyupgrade --py310-plus **/*.py
 
 .PHONY: test-unit
 test-unit: ## Run all unit tests
-	docker-compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
+	docker compose run --rm --no-deps weather poetry run pytest -n auto weather_app/tests/unit -ra
 
 .PHONY: test-integration
 test-integration: ## Run all integration tests
-	docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/integration -ra
+	docker compose run --rm weather poetry run pytest -n auto weather_app/tests/integration -ra
 
 .PHONY: test-acceptance
 test-acceptance: ## Run all acceptance tests
-	docker-compose run --rm weather poetry run pytest -n auto weather_app/tests/acceptance -ra
+	docker compose run --rm weather poetry run pytest -n auto weather_app/tests/acceptance -ra
 
 .PHONY: test
-test: test-unit test-integration test-acceptance
+test: build test-unit test-integration test-acceptance
 
 .PHONY: pre-commit
 pre-commit: check-format check-typing check-style test

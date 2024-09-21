@@ -3,8 +3,10 @@ from doublex import Spy
 from doublex_expects import have_been_called
 
 from weather_app.weather.domain.weather_repository import WeatherRepository
-from weather_app.weather.use_cases.find_all_weathers_command import FindAllWeathersCommand, \
-    FindAllWeathersCommandHandler
+from weather_app.weather.use_cases.find_all_weathers_command import (
+    FindAllWeathersCommand,
+    FindAllWeathersCommandHandler,
+)
 
 
 class TestFindAllWeathersCommandHandler:

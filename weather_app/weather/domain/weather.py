@@ -16,7 +16,6 @@ class Weather:
 
 
 class WeatherFactory:
-
     @staticmethod
     def make(weather_id: str, temperature: int, city: str) -> Weather:
         try:
