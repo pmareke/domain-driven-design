@@ -6,7 +6,7 @@ COPY pyproject.toml /code
 
 RUN pip install poetry
 
-RUN poetry install
+RUN poetry install --no-root
 
 COPY . /code
 

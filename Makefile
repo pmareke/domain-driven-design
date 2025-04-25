@@ -15,7 +15,7 @@ build: ## Build the app
 
 .PHONY: install
 install: ## Install all dependencies
-	poetry install
+	poetry install --no-root
 
 .PHONY: update
 update: ## Update dependencies
